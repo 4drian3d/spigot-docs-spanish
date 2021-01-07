@@ -1,4 +1,4 @@
-# <div id="plugin-yml">Plugin.yml</div>
+# <div id="plugin-yml">Archivo plugin.yml</div>
 El `plugin.yml` es un archivo creado para contener información acerca de tu plugin. Sin este archivo tu plugin no funcionará. Consiste en un conjunto de atributos, cada uno definido por una nueva línea sin indentación. Todos los atributos son `case-sensitive`, por lo que hay que fijarse en las minúsculas y mayúsculas. Atributos en **negrita** son requeridos, atributos en ***itálica*** no lo son.
 
 ## Contenidos
