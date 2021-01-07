@@ -1,4 +1,4 @@
-# Plugin.yml
+# <div id="plugin-yml">Plugin.yml</div>
 El `plugin.yml` es un archivo creado para contener información acerca de tu plugin. Sin este archivo tu plugin no funcionará. Consiste en un conjunto de atributos, cada uno definido por una nueva línea sin indentación. Todos los atributos son `case-sensitive`, por lo que hay que fijarse en las minúsculas y mayúsculas. Atributos en **negrita** son requeridos, atributos en ***itálica*** no lo son.
 
 ## Contenidos
@@ -10,7 +10,7 @@ El `plugin.yml` es un archivo creado para contener información acerca de tu plu
 - [Plugin Annotations](#plugin-annotations)
 - [Apéndice](#apendice)
 
-### <div id="atributos-requeridos">Atributos requeridos <font size="2px">([inicio](#plugin.yml))</font></div>
+### <div id="atributos-requeridos">Atributos requeridos <font size="2px">([inicio](#plugin-yml))</font></div>
 Hay tres atributos que son requeridos por el archivo `plugin.yml` para que sea considerado válido.
 
 **main**
@@ -42,7 +42,7 @@ name: MiPlugin
 version: 1.4.1
 ```
 
-### <div id="atributos-opcionales">Atributos opcionales <font size="2px">([inicio](#plugin.yml))</font></div>
+### <div id="atributos-opcionales">Atributos opcionales <font size="2px">([inicio](#plugin-yml))</font></div>
 Estos atributos no son obligatorios a comparación de los anteriores y tu plugin funcionará sin problemas aunque no los apliques (solamente en algunos casos).
 
 ***description***
@@ -173,7 +173,7 @@ permissions:
  [atributos de permiso opcionales]
 ```
 
-### <div id="atributos-comandos">Atributos de comandos <font size="2px">([inicio](#plugin.yml))</font></div>
+### <div id="atributos-comandos">Atributos de comandos <font size="2px">([inicio](#plugin-yml))</font></div>
 Un bloque de comando empieza con el nombre del comando, y después tiene una lista de atributos opcionales.
 
 ***description***
@@ -227,7 +227,7 @@ permission-message: "¡No tienes permiso para usar este comando!"
 usage: "Uso: /<command> [test|stop]"
 ```
 
-### <div id="atributos-permisos">Atributos de permisos <font size="2px">([inicio](#plugin.yml))</font></div>
+### <div id="atributos-permisos">Atributos de permisos <font size="2px">([inicio](#plugin-yml))</font></div>
 Un bloque de permiso comienza con el nombre del permiso y es seguido por nodos de atributos.
 
 ***description***
@@ -269,7 +269,7 @@ permissions:
       test.bar: false
 ```
 
-### <div id="ejemplo-archivo">Ejemplo de archivo <font size="2px">([inicio](#plugin.yml))</font></div>
+### <div id="ejemplo-archivo">Ejemplo de archivo <font size="2px">([inicio](#plugin-yml))</font></div>
 Aquí se muestra un ejemplo de lo que sería un `plugin.yml` válido:
 ```yaml
 main: org.spigotmc.annotationtest.Test
@@ -307,7 +307,7 @@ permissions:
      test.foo: true
 ```
 
-### <div id="plugin-annotations">Plugin Annotations <font size="2px">([inicio](#plugin.yml))</font></div>
+### <div id="plugin-annotations">Plugin Annotations <font size="2px">([inicio](#plugin-yml))</font></div>
 Si no quieres lidiar con el problema de crear un `plugin.yml` para cada proyecto, existe esta peqieña herramienta llamada Plugin Annotations. Es un simple procesador de anotaciones que automáticamente genera un `plugin.yml` correcto para ti.
 
 Para usarlo simplemente debes añadirlo como dependencia a tu proyecto.
@@ -330,7 +330,7 @@ Plugin Annotations usa el mismo repositorio donde la `spigot-api` está alojada.
 ```
 Más información sobre esta herramienta puede ser encontrada en su [wiki](https://www.spigotmc.org/wiki/spigot-plugin-yml-annotations/).
 
-### <div id="apendice">Apéndice <font size="2px">([inicio](#plugin.yml))</font></div>
+### <div id="apendice">Apéndice <font size="2px">([inicio](#plugin-yml))</font></div>
 - [Wiki original](https://www.spigotmc.org/wiki/plugin-yml/)
 - [Introducción a YAML](https://github.com/Animosity/CraftIRC/wiki/Complete-idiot%27s-introduction-to-yaml)
 - [Wiki de lista YAML](https://en.wikipedia.org/wiki/YAML#Lists)
