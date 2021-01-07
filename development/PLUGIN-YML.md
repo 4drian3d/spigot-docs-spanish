@@ -1,16 +1,16 @@
 # Plugin.yml
-El `plugin.yml` es un archivo creado para contener información acerca de tu plugin. Sin este archivo tu plugin no funcionará. Consiste en un conjunto de atributos, cada uno definido por una nueva línea sin indentación. Todos los atributos son `case-sensitive`, por lo que hay que fijarse en las minúsculas y mayúsculas. Atributos en negrita son requeridos, atributos en ítalica no lo son.
+El `plugin.yml` es un archivo creado para contener información acerca de tu plugin. Sin este archivo tu plugin no funcionará. Consiste en un conjunto de atributos, cada uno definido por una nueva línea sin indentación. Todos los atributos son `case-sensitive`, por lo que hay que fijarse en las minúsculas y mayúsculas. Atributos en **negrita** son requeridos, atributos en ***itálica*** no lo son.
 
 ## Contenidos
 - [Atributos requeridos](#atributos-requeridos)
 - [Atributos opcionales](#atributos-opcionales)
-- [Atributos de comandos](#atributos-de-comandos)
-- [Atributos de permisos](#atributos-de-permisos)
-- [Ejemplo](#ejemplo)
+- [Atributos de comandos](#atributos-comandos)
+- [Atributos de permisos](#atributos-permisos)
+- [Ejemplo de archivo](#ejemplo-archivo)
 - [Plugin Annotations](#plugin-annotations)
-- [Apéndice](#apéndice)
+- [Apéndice](#apendice)
 
-### Atributos requeridos
+### <div id="atributos-requeridos">Atributos requeridos <font size="2px">([inicio](#plugin.yml))</font></div>
 Hay tres atributos que son requeridos por el archivo `plugin.yml` para que sea considerado válido.
 
 **main**
@@ -42,7 +42,7 @@ name: MiPlugin
 version: 1.4.1
 ```
 
-### Atributos opcionales
+### <div id="atributos-opcionales">Atributos opcionales <font size="2px">([inicio](#plugin.yml))</font></div>
 Estos atributos no son obligatorios a comparación de los anteriores y tu plugin funcionará sin problemas aunque no los apliques (solamente en algunos casos).
 
 ***description***
@@ -57,7 +57,7 @@ description: "¡Este plugin contiene tantas cosas, que no puede ser descrito!"
 ***api-version***
 - La versión de la API que se desea usar.
 - Las versiones disponibles son `1.13`, `1.14`, `1.15` y `1.16`.
-- Esto señalará al servidor que tu plugin ha sido programado con una versión específica de servidor en mente, y que no debería aplicar ninguna tipo de medida para compatibilidad con versiones anteriores. Como resultado tú también te tendrás que asegurar que has programado tu plugin para que pueda leer configuraciones antiguas, datos, entre otras cosas. Cada versión del servidor decide cómo las compatibilidad es alcanzada, versiones deconocidas o futuras evitarán que el plugin se active. A partir de la versión `1.14`, la `api-version` `1.13` todavía está permitida; sin embargo, las versiones futuras pueden dejar de ser compatibles con versiones anteriores según esta versión.
+- Esto señalará al servidor que tu plugin ha sido programado con una versión específica de servidor en mente, y que no debería aplicar ninguna tipo de medida para compatibilidad con versiones anteriores. Como resultado tú también te tendrás que asegurar que has programado tu plugin para que pueda leer configuraciones antiguas, datos, entre otras cosas. Cada versión del servidor decide cómo la compatibilidad es manejada, versiones desconocidas o futuras evitarán que el plugin se active. A partir de la versión `1.14`, la `api-version` de la `1.13` todavía está permitida; sin embargo, las versiones futuras pueden dejar de ser compatibles con versiones anteriores según esta versión.
 
 *Ejemplo:*
 ```yaml
@@ -84,7 +84,7 @@ author: md_5
 ```
 
 ***authors***
-- Te permite listar a múltiples autores, en caso de que sea un proyecto colaborativo. Ve *author*.
+- Te permite listar a múltiples autores, en caso de que sea un proyecto colaborativo. Ver *author*.
 - Debe ser en formato válido de [Lista YAML](https://en.wikipedia.org/wiki/YAML#Lists).
 
 *Ejemplo:*
@@ -102,7 +102,7 @@ website: www.spigotmc.org
 ```
 
 ***depend***
-- Una lista de plugins que tu plugin necesitaba para funcionar.
+- Una lista de plugins que tu plugin necesita obligatoriamente para funcionar.
 - Debe ser en formato válido de [Lista YAML](https://en.wikipedia.org/wiki/YAML#Lists).
 - Usa el atributo **name** del plugin requerido para especificar la dependencia.
 - Si algún plugin listado aquí no es encontrado, tu plugin fallará al cargar.
@@ -173,7 +173,7 @@ permissions:
  [atributos de permiso opcionales]
 ```
 
-### Atributos de comandos
+### <div id="atributos-comandos">Atributos de comandos <font size="2px">([inicio](#plugin.yml))</font></div>
 Un bloque de comando empieza con el nombre del comando, y después tiene una lista de atributos opcionales.
 
 ***description***
@@ -227,7 +227,7 @@ permission-message: "¡No tienes permiso para usar este comando!"
 usage: "Uso: /<command> [test|stop]"
 ```
 
-### Atributos de permisos
+### <div id="atributos-permisos">Atributos de permisos <font size="2px">([inicio](#plugin.yml))</font></div>
 Un bloque de permiso comienza con el nombre del permiso y es seguido por nodos de atributos.
 
 ***description***
@@ -269,8 +269,7 @@ permissions:
       test.bar: false
 ```
 
-
-### Ejemplo
+### <div id="ejemplo-archivo">Ejemplo de archivo <font size="2px">([inicio](#plugin.yml))</font></div>
 Aquí se muestra un ejemplo de lo que sería un `plugin.yml` válido:
 ```yaml
 main: org.spigotmc.annotationtest.Test
@@ -308,7 +307,7 @@ permissions:
      test.foo: true
 ```
 
-### Plugin Annotations
+### <div id="plugin-annotations">Plugin Annotations <font size="2px">([inicio](#plugin.yml))</font></div>
 Si no quieres lidiar con el problema de crear un `plugin.yml` para cada proyecto, existe esta peqieña herramienta llamada Plugin Annotations. Es un simple procesador de anotaciones que automáticamente genera un `plugin.yml` correcto para ti.
 
 Para usarlo simplemente debes añadirlo como dependencia a tu proyecto.
@@ -320,7 +319,7 @@ Para usarlo simplemente debes añadirlo como dependencia a tu proyecto.
   <scope>provided</scope>
 </dependency>
 ```
-Usa el mismo repository donde la `spigot-api` reside.
+Plugin Annotations usa el mismo repositorio donde la `spigot-api` está alojada.
 ```xml
 <repositories>
   <repository>
@@ -331,6 +330,7 @@ Usa el mismo repository donde la `spigot-api` reside.
 ```
 Más información sobre esta herramienta puede ser encontrada en su [wiki](https://www.spigotmc.org/wiki/spigot-plugin-yml-annotations/).
 
-### Apéndice
+### <div id="apendice">Apéndice <font size="2px">([inicio](#plugin.yml))</font></div>
+- [Wiki original](https://www.spigotmc.org/wiki/plugin-yml/)
 - [Introducción a YAML](https://github.com/Animosity/CraftIRC/wiki/Complete-idiot%27s-introduction-to-yaml)
 - [Wiki de lista YAML](https://en.wikipedia.org/wiki/YAML#Lists)
