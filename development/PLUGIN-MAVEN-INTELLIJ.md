@@ -242,7 +242,7 @@ Esto se haría añadiendo `<project.build.sourceEncoding>UTF-8</project.build.so
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.16.4-R0.1-SNAPSHOT</version>
+            <version>1.16.5-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
