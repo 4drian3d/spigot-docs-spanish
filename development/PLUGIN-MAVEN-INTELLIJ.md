@@ -1,10 +1,12 @@
 # <div id="plugin-maven-intellij">Plugin usando Maven en IntelliJ IDEA</div>
-Maven es una herramienta de gestión y comprensión de proyectos de software, como Apache, los creadores de Maven dicen.
+
+Maven es una herramienta de gestión y comprensión de proyectos de software, cual le pertenece a Apache.
 El principal objetivo de Maven es facilitar el proceso de compilado y construcción. Y eso es exactamente lo que queremos.
 
 En este tutorial se mostrará cómo crear un plugin usando la API de Spigot usando Maven en IntelliJ IDEA.
 
 ## Contenidos
+
 - [Pre-requisitos](#pre-requisitos)
 - [Creando un nuevo proyecto](#nuevo-proyecto)
 - [Configurando el pom.xml](#configurando-pom)
@@ -14,12 +16,14 @@ En este tutorial se mostrará cómo crear un plugin usando la API de Spigot usan
 
 
 ### <div id="pre-requisitos">Pre-requisitos <font size="2px">([inicio](#plugin-maven-intellij))</font></div>
+
 - Estaremos usando [IntelliJ IDEA](https://www.jetbrains.com/idea/) para desarrollar el plugin.
 - Será necesario el [Kit de desarrollo de Java (JDK)](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html).
 - Debido que usamos Maven, necesitaremos un nombre de dominio (ej: `ejemplo.com`). Si no tienes uno, puedes usar tu perfil de [Github](https://github.com/) o tu correo electrónico como será mencionado posteriormente.
 - Conocimientos básicos de Java (en caso de que no tengas ningún conocimiento se te recomienda el curso de [pildorasinformaticas](https://www.youtube.com/c/pildorasinformaticas) de [Java desde cero](https://www.youtube.com/playlist?list=PLU8oAlHdN5BktAXdEVCLUYzvDyqRQJ2lk)).
 
 ### <div id="nuevo-proyecto">Creando un nuevo proyecto <font size="2px">([inicio](#plugin-maven-intellij))</font></div>
+
 Si inicias IntelliJ IDEA (2020.3) por primera vez, verás algo como esto:
 
 ![Inicio de IntelliJ IDEA 2020.3 (Primera vez)](https://i.imgur.com/W3gnueT.png)
@@ -55,9 +59,11 @@ En `ArtifactId` es el nombre de tu plugin. En este caso el nombre será `MiPlugi
 Algo así debería verse, una vez hecho eso presiona el botón "Finish" de color azul en la barra inferior para comenzar con lo más interesante.
 
 ### <div id="configurando-pom">Configurando el pom.xml <font size="2px">([inicio](#plugin-maven-intellij))</font></div>
+
 POM significa "Project Object Model", en español "Modelo de objeto de proyecto". Ese es el lugar en donde añadimos nuestras dependencias y otras cosas.
 
 Ahora mismo se debería haber abierto el archivo `pom.xml` de tu proyecto de Maven. Para decirle a Maven que queremos hacer un plugin de Spigot y que queremos usar la API para eso, necesitamos añadir unas cuantas cosas a este archivo. Necesitamos decirle a Maven desde dónde obtener la API, y después debemos decirle a Maven que nuestro plugin depende de la API de Spigot. Puedes hacer eso copiando y pegando esto en tu archivo POM.
+
 ```xml
 <repositories>
     <repository>
@@ -70,7 +76,7 @@ Ahora mismo se debería haber abierto el archivo `pom.xml` de tu proyecto de Mav
     <dependency>
         <groupId>org.spigotmc</groupId>
         <artifactId>spigot-api</artifactId>
-        <version>1.16.4-R0.1-SNAPSHOT</version>
+        <version>1.16.5-R0.1-SNAPSHOT</version>
         <scope>provided</scope>
     </dependency>
 </dependencies>
@@ -87,6 +93,7 @@ Finalmente, debemos los cambios a Maven.
 En IntelliJ IDEA esto puede ser hecho presionando el ícono que aparece en el lado derecho, el cual se ve de esta forma: ![Recargar proyecto Maven en IntelliJ IDEA 2020.3](https://i.imgur.com/sLohass.png)
 
 ### <div id="clase-principal">Creando la clase principal del plugin <font size="2px">([inicio](#plugin-maven-intellij))</font></div>
+
 En el lado izquierdo, descontrae la pestaña desde el botón que tiene el nombre de tu proyecto, en este caso es `MiPlugin`. Navega a `MiPlugin -> src -> main -> java`, haz click derecho en `java -> New -> Package`.
 
 Aquí debes introducir el nombre del paquete de tu plugin, el cual es tu dominio invertido en conjunto con el nombre de tu plugin. En el caso de `MiPlugin` sería `org.zafire.miplugin`, siguiendo las [Convenciones de Nombramiento de Java (JNC)](https://www.oracle.com/java/technologies/javase/codeconventions-namingconventions.html).
@@ -106,6 +113,7 @@ public class MiPlugin {
 
 }
 ```
+
 Debe lucir de esta manera:
 
 ```java
@@ -148,6 +156,7 @@ Podemos añadir mucho más de lo que hemos añadido hasta ahora, pero primero cr
 
 
 ### <div id="plugin-yml">Creando el archivo plugin.yml <font size="2px">([inicio](#plugin-maven-intellij))</font></div>
+
 Ya casi podemos compilar nuestro plugin, pero primero necesitamos un archivo más, llamado `plugin.yml`. Este archivo presenta nuestro plugin al servidor Spigot.
 
 A la izquierda, haz click en `resources -> New -> File` y en el recuadro que aparezca, colocamos `plugin.yml` como nombre de archivo.
@@ -157,6 +166,7 @@ A la izquierda, haz click en `resources -> New -> File` y en el recuadro que apa
 Posteriormente, presiona la tecla ***ENTER*** para confirmar la creación.
 
 Hay algunas cosas que el servidor Spigot necesita conocer sobre el plugin:
+
 - El nombre del plugin.
 - La versión de este plugin.
 - La ruta hacia la clase principal (creada anteriormente).
@@ -198,6 +208,7 @@ En la parte donde dice `version` colocamos `${project.version}` para indicar que
 Para más información sobre el archivo `plugin.yml`, te recomendamos visitar nuestra documentación en español en: [development/PLUGIN-YML.md](https://github.com/ZafireStudios/spigot-docs-spanish/blob/main/development/PLUGIN-YML.md)
 
 ### <div id="compilando">Compilando el plugin <font size="2px">([inicio](#plugin-maven-intellij))</font></div>
+
 Finalmente es hora de compilar y empaquetar nuestro plugin en un archivo JAR.
 
 Como último detalle, el cual olvidé anteriormente, recomiendo colocar soporte de `UTF-8` a el POM para que así se puedan usar letras del español, como la ñ o los tíldes.
