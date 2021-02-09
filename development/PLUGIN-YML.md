@@ -1,4 +1,4 @@
-# <div id="plugin-yml">Archivo plugin.yml</div>
+# <div id="plugin-yml">Archivo plugin.yml <font size="2px">([original](https://www.spigotmc.org/wiki/plugin-yml/))</font></div> 
 
 El `plugin.yml` es un archivo creado para contener información acerca de tu plugin. Sin este archivo tu plugin no funcionará. Consiste en un conjunto de atributos, cada uno definido por una nueva línea sin indentación. Todos los atributos son `case-sensitive`, por lo que hay que fijarse en las minúsculas y mayúsculas. Atributos en **negrita** son requeridos, atributos en ***itálica*** no lo son.
 
@@ -10,7 +10,6 @@ El `plugin.yml` es un archivo creado para contener información acerca de tu plu
 - [Atributos de permisos](#atributos-permisos)
 - [Ejemplo de archivo](#ejemplo-archivo)
 - [Plugin Annotations](#plugin-annotations)
-- [Apéndice](#apendice)
 
 ### <div id="atributos-requeridos">Atributos requeridos <font size="2px">([inicio](#plugin-yml))</font></div>
 
@@ -390,9 +389,3 @@ Plugin Annotations usa el mismo repositorio donde la `spigot-api` está alojada.
 ```
 
 Más información sobre esta herramienta puede ser encontrada en su [wiki](https://www.spigotmc.org/wiki/spigot-plugin-yml-annotations/).
-
-### <div id="apendice">Apéndice <font size="2px">([inicio](#plugin-yml))</font></div>
-
-- [Wiki original](https://www.spigotmc.org/wiki/plugin-yml/)
-- [Introducción a YAML](https://github.com/Animosity/CraftIRC/wiki/Complete-idiot%27s-introduction-to-yaml)
-- [Wiki de lista YAML](https://en.wikipedia.org/wiki/YAML#Lists)

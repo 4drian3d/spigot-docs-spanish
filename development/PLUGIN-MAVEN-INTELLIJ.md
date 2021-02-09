@@ -1,4 +1,4 @@
-# <div id="plugin-maven-intellij">Plugin usando Maven en IntelliJ IDEA</div>
+# <div id="plugin-maven-intellij">Plugin usando Maven en IntelliJ IDEA <font size="2px">([original](https://www.spigotmc.org/wiki/creating-a-plugin-with-maven-using-intellij-idea/))</font></div>
 
 Maven es una herramienta de gestión y comprensión de proyectos de software, cual le pertenece a Apache.
 El principal objetivo de Maven es facilitar el proceso de compilado y construcción. Y eso es exactamente lo que queremos.
