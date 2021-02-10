@@ -1,4 +1,4 @@
-# <div id="guia-de-optimizacion">Guía de optimización para servidores de Minecraft ([original](https://github.com/YouHaveTrouble/minecraft-optimization))</div>
+# <div id="guia-de-optimizacion">Guía de optimización para servidores de Minecraft ([Fuente original](https://github.com/YouHaveTrouble/minecraft-optimization))</div>
 
 Ten en cuenta que esta guía está hecha para la versión 1.16.5 de Minecraft (a pesar de ello, igualmente puedes usarla para versiones más obsoletas), basándose en [esta guía](https://www.spigotmc.org/threads/guide-server-optimization%E2%9A%A1.283181/) y otras fuentes (todas son citadas en la guía cuando son relevantes).
 
@@ -7,45 +7,181 @@ Nunca habrá una guía que puedas seguir y que te otorgue resultados perfectos. 
 ## Contenidos
 
 - [Software de servidor](#software-de-servidor)
+  - [Software recomendado](#software-recomendado)
+  - [Software no recomendado](#software-no-recomendado)
+- [Pre-generación del mapa](#pre-generacion-mapa)
+  - [Beneficios y cómo pre-generar un mapa](#beneficios-como-pre-generar-mapa)
+  - [Estableciendo un borde del mapa](#borde-mapa)
+- [Configuración de Java](#configuracion-java)
+  - [Parámetros de la JVM](#parametros-jvm)
+  - [Versión de Java](#version-java)
+- [¿Qué cosas debo evitar a toda costa?](#evitar-toda-costa)
+  - [Plugins que remueven objetos del suelo](#plugins-remueven-objetos-suelo)
+  - [Plugins que stackean mobs](#plugins-stackean-mobs)
+  - [Activar, desactivar o recargar plugins](#recargar-plugins)
+- [¿Cómo mido el rendimiento del servidor?](#medir-rendimiento-servidor)
+  - [mspt](#mspt)
+  - [timings](#timings)
+  - [spark](#spark)
+- [Configuraciones optimizadas](#configuraciones-optimizadas)
+  - [server.properties](#server-properties)
+  - [bukkit.yml](#bukkit-yml)
+  - [spigot.yml](#spigot-yml)
+  - [paper.yml](#paper-yml)
+  - [purpur.yml](#purpur-yml)
 
 ### <div id="software-de-servidor">Software de servidor ([inicio](#guia-de-optimizacion))</div>
 
 Tu elección de software de servidor (el archivo JAR, al cual muy comúnmente se le nombra `server.jar`) puede hacer una gran diferencia en el rendimiento y posibilidades que ofrece la API. Actualmente hay múltiples opciones populares viables de software de servidor, pero también hay algunas de las que te debes mantener alejado por varias razones.
 
-**Recomendadas:**
+#### <div id="software-recomendado">**Software recomendado**</div>
 
 - [Paper](https://papermc.io/) - Este el el software de servidor más popular enfocado en mejorar el rendimiento, al igual que arreglar el juego e inconsistencias en las mecánicas.
 - [Tuinity](https://github.com/Spottedleaf/Tuinity) - Un fork (derivado) de Paper que se enfoca en mejorar el rendimiento del servidor aún más que Paper.
 - [Purpur](https://github.com/pl3xgaming/Purpur) - Un fork (derivado) de Tuinity que se enfoca en ofrecerle al dueño del servidor más libertad en la configuración de funciones del juego.
 
-**Evitar a toda costa:**
+#### <div id="software-no-recomendado">**Software no recomendado**</div>
 
 - Yatopia - Es un total desorden de parches que ni siquiera han sido probados, que llenarán de bugs y harán injugable tu servidor - "¡El poder combinado de forks (derivados) de Paper para una máxima inestabilidad y creación de un servidor inmantenible!".
 - Cualquier software de servidor de paga que dice que todo es async, tienes 99.99% de probabilidades de ser estafado.
 - Bukkit/CraftBukkit/Spigot - Extremadamente obsoletos en temas de rendimiento comparados con otros software de servidor accesibles.
-- Cualquier plugin/software de servidor que activa/desactiva/recarga plugins en tiempo de ejecución. Lee [esta sección]() para saber por qué.
+- Cualquier plugin/software de servidor que activa/desactiva/recarga plugins en tiempo de ejecución. Lee [esta sección](#recargar-plugins) para saber por qué.
 
-### Pre-generación del mapa
+### <div id="pre-generacion-mapa">Pre-generación del mapa ([inicio](#guia-de-optimizacion))</div>
 
-La pre-generación del mapa es una de las cosas más importantes para mejorar un servidor de bajo presupuesto. Esto ayuda a servidores que son mantenidos en un nodo compartido de un núcleo de CPU, ya que no pueden utilizar totalmente la carga de chunks async. Puedes usar algún plugin como [Chunky](https://www.spigotmc.org/resources/chunky.81534/) para pre-generar el mundo o en versiones menores a la `1.13`, puedes usar [WorldBorder](https://dev.bukkit.org/projects/worldborder). Asegúrate de establecer un borde para que tus jugadores no generen nuevos chunks, de preferencia el [borde del Minecraft vanilla](https://minecraft-es.gamepedia.com/Borde_del_mundo#Comandos), ya que limita ciertas funcionalidades como el rango de búsqueda de mapas que pueden causar problemas de rendimiento. Toma nota que pre-generar puede tomar horas algunas veces dependiendo del radio de generación que hayas establecido.
+#### <div id="beneficios-como-pre-generar-mapa">**Beneficios y cómo pre-generar un mapa**</div>
+
+La pre-generación del mapa es una de las cosas más importantes para mejorar un servidor de bajo presupuesto. Esto ayuda a servidores que son mantenidos en un nodo compartido de un núcleo de CPU, ya que no pueden utilizar totalmente la carga de chunks async. Puedes usar algún plugin como [Chunky](https://www.spigotmc.org/resources/chunky.81534/) para pre-generar el mundo o en versiones menores a la `1.13`, puedes usar [WorldBorder](https://dev.bukkit.org/projects/worldborder).
+
+Ejemplos de **Chunky**:
+
+- Generar chunks desde la coordenada 0,0 en un radio de 1000 bloques en el mundo normal:
+
+```txt
+/chunky radius 1000
+Radio asignado a 1000 bloques desde la coordenada 0,0.
+
+/chunky start
+Se ha comenzado la pre-generación del mapa.
+```
+
+- Generar chunks desde la coordenada 100,-100 en un radio de 5000 bloques en el mundo del nether:
+
+```txt
+/chunky center 100 -100
+Se estableció la coordenada central a 100,-100.
+
+/chunky radius 5000
+Radio asignado a 5000 bloques desde la coordenada 100,-100.
+
+/chunky world world_nether
+El mundo que se pre-generará será: world_nether
+
+/chunky start
+Se ha comenzado la pre-generación del mapa.
+```
+
+- Establecer un borde de un mundo a 0,0 en un radio de 10000 bloques y generar los chunks del interior:
+
+```txt
+/worldborder center 0 0
+Borde del mundo centrado a las coordenadas 0,0.
+
+/worldborder set 20000
+Borde del mundo establecido en un área de 20000 bloques (10000 por 10000).
+
+/chunky worldborder
+Se ha establecido que el radio de pre-generación será el mismo que el del borde del mundo.
+
+/chunky start
+Se ha comenzado la pre-generación del mapa.
+```
+
+Ejemplos de **WorldBorder**:
+
+- Establecer un borde de un mundo llamado "survival" (usando el borde de WorldBorder, posteriormente es recomendable eliminarlo y usar el de Minecraft Vanilla) en un radio de 10000 bloques desde las coordenadas 0,0 y generar los chunks del interior:
+
+```txt
+/wb survival set 10000 10000 0 0
+Se ha establecido el borde del mundo en un radio de 10000 por 10000 bloques desde la coordenada 0,0.
+
+/wb survival fill
+Se pre-generarán todos los chunks restantes de este mundo, ¿estás seguro?
+
+/wb fill confirm
+Se ha comenzado la pre-generación del mapa.
+```
+
+#### <div id="borde-mapa">**Estableciendo un borde en el mapa**</div>
+
+Asegúrate de establecer un borde para que tus jugadores no generen nuevos chunks, de preferencia el [borde del Minecraft vanilla](https://minecraft-es.gamepedia.com/Borde_del_mundo#Comandos), ya que limita ciertas funcionalidades como el rango de búsqueda de mapas del tesoro que pueden causar problemas de rendimiento. Toma nota que pre-generar puede tomar horas algunas veces dependiendo del radio de generación que hayas establecido.
 
 Es clave de recordar que el mundo normal, el nether y el end tienen bordes de mundo separados que debes establecer en cada mundo. La dimensión del nether es 8 veces más pequeña que el mundo normal (si no está modificado por un datapack), sasí que si estableces mal el tamaño tus jugadores podrían terminar el otro lado del borde del mundo.
 
-### Flags de inicio de Java
+Ejemplo:
+- Estableciendo un borde en un área 20000 bloques desde la coordenada 0,0:
 
-[Paper y sus forks (derivados) en la próxima versión 1.17 requerirán Java 11 (LTS) o mayor](https://papermc.io/forums/t/java-11-mc-1-17-and-paper/5615). ¡Una buena resolución para el 2021 de finalmente actualizar tu versión de Java! (o por lo menos informar a tu proveeedor, así ellos manejan la migración).
+```txt
+/worldborder center 0 0
+Borde del mundo centrado a las coordenadas 0,0.
+
+/worldborder set 20000
+Borde del mundo establecido en un área de 20000 bloques (10000 por 10000).
+```
+
+### <div id="configuracion-java">Configuración de Java ([inicio](#guia-de-optimizacion))</div>
+
+#### <div id="parametros-jvm">**Parámetros de la JVM**</div>
+
+La JVM (Java Virtual Machine) es una especie de programa que le permite a tu computadora ejecutar el bytecode de Java ([más información](https://es.wikipedia.org/wiki/M%C3%A1quina_virtual_Java)).
+
+Las parámetros de inicio de la JVM te permiten modificar aspectos de cómo será iniciado tu servidor, probablemente los parámetros que más te suenen sean las que asignan el consumo inicial y máximo de memoria RAM: `java -Xms1G -Xmx1G -jar server.jar`.
 
 La JVM puede ser configurada para reducir los picos de lag causados por las grandes tareas de recolección de basura. Puedes generar flags de inicio ideales para tu servidor en [startmc.sh](https://startmc.sh/), para mayor información sobre estas flags haz [click aquí](https://mcflags.emc.gs/).
 
-### Plugins "demasiado buenos para ser verdad"
+#### <div id="version-java">**Versión de Java**</div>
 
-TODO
+Usualmente para iniciar un servidor de Minecraft se requiere Java 8, pero afortunadamente Paper y sus forks (derivados) ya son compatibles con Java 11 en sus versiones más recientes y con la salida de la versión `1.17`, será obligatorio el uso de Java 11 o mayor ([más información](https://papermc.io/forums/t/java-11-mc-1-17-and-paper/5615)).
 
-### Configuraciones
+Esta es una buena noticia, ya que las nuevas versiones de Java usualmente tienen un sistema de recolección de basura más optimizado, lo cual posiblemente ayudará a que nuestros servidores tengan un mejor rendimiento. Si quieres saber la versión de Java que usa tu servidor, puedes usar el comando `java --version` si tienes VPS, en caso de que uses un hosting de Minecraft con panel tendrás que buscarlo en ese lugar (en caso de que uses Paper, igualmente te aparece una advertencia bastante notoria si usas Java 8 en versiones más recientes).
+
+### <div id="evitar-toda-costa">¿Qué cosas debo evitar a toda costa? ([inicio](#guia-de-optimizacion))</div>
+
+#### <div id="plugins-remueven-objetos-suelo">**Plugins que remueven objetos del suelo**</div>
+
+Son absolutamente innecesarios ya que pueden ser fácilmente reemplazados con [merge-radius](#merge-radius) y [alt-item-despawn-rate](#alt-item-despawn-rate) y francamente, son menos configurables que las configuraciones bássicas de un servidor. Lo peor es que tienden a usar más recursos escaneando y removiendo objetos, por lo que causan más lag del que supuestamente deberían quitar.
+
+#### <div id="plugins-stackean-mobs">**Plugins que stackean mobs**</div>
+
+Es realmente difícil justificar el uso de uno. Stackear entidades que aparecieron naturalmente causa más lag que no stackearlas, debido a que el servidor estará constantemente intentando de aparecer más mobs. El único uso "aceptable" es para los spawners en servidores con grandes cantidades de spawners.
+
+#### <div id="recargar-plugins">**Activar, desactivar o recargar plugins**</div>
+
+Cualquier cosa que active, desactive o recargue plugins en tiempo de ejecución es extremadamente peligroso. Cargar un plugin de esa manera causa errores fatales con los datos de seguimiento y desactivar un plugin puede llevar a errores debido a alguna dependencia faltante.
+
+El comando `/reload` sufre de los mismos problemas, debido a que Java no provee una forma soportada o segura de descargar o recargar código que ya ha sido cargado, por lo que lo ideal sería que reinicies tu servidor cada vez que añadas algún nuevo plugin y no intentes recargarlo jamás. Para más información, haz [click aquí](https://matthewmiller.dev/blog/problem-with-reload/).
+
+### <div id="medir-rendimiento-servidor">¿Cómo mido el rendimiento de mi servidor? ([inicio](#guia-de-optimizacion))</div>
+
+#### <div id="mspt">**mspt**</div>
+
+Paper ofrece el comando `/mspt` que te dirá cuánto tiempo le tómo al servidor calcular los ticks recientes. Si el primer y segundo valor están por debajo de `50`, ¡felicidades, tu servidor no tiene lag! Si el tercer valor está sobre `50`, entonces eso signififca que hubo al menos `1` tick que tomó más tiempo. Esto es complementamente normal y suele pasar en ocasiones, así que no te alteres.
+
+#### <div id="timings">**timings**</div>
+
+Una buena forma de saber por qué tu servidor tiene lag son los timings. Los timings son una herramienta que te permiten ver qué tareas están tomando más tiempo. Es la herramienta más básica de solución de problemas y si necesitas ayuda para resolver tus problemas de lag, probablemente te pidan tus timings.
+
+Para obtener los timings de tu servidor, solamente debes ejecutar el comando `/timings paste` y hacer click en el enlace que se muestra. Puedes compartir est eenlace con otras personas para que así te puedan ayuar. También es fácil equivocarse al leerlo si no sabes qué estás haciendo. Aquí hay un [video tutorial de Aikar](https://www.youtube.com/watch?v=T4J0A9l7bfQ) (próximamente en español) que explica cómo leerlos.
+
+#### <div id="spark">**spark**</div>
+
+[Spark](https://github.com/lucko/spark) es un plugin que te permite medir el uso de CPU y memoria RAM de tus servidores. Puedes leer cómo usarlo en su [wiki](https://github.com/lucko/spark/wiki/Commands) (próximamente en español). También hay una guía en cómo encontrar las causas de picos de lag [aquí](https://github.com/lucko/spark/wiki/Finding-the-cause-of-lag-spikes).
+
+### <div id="configuraciones-optimizadas">Configuraciones optimizadas ([inicio](#guia-de-optimizacion))</div>
 
 En esta sección se mostrarán opciones de los software de servidor que podrían ayudar a mejorar el rendimiento de tu servidor, y junto a cada opción se mostrará una breve descripción de lo que hace.
 
-#### **server.properties**
+#### <div id="server-properties">**server.properties**</div>
 
 `network-compression-threshold`
 
@@ -57,7 +193,7 @@ En esta sección se mostrarán opciones de los software de servidor que podrían
 
 ---
 
-#### **bukkit.yml**
+#### <div id="bukkit-yml">**bukkit.yml**</div>
 
 <div id="spawn-limits"></div>
 
@@ -87,7 +223,7 @@ En esta sección se mostrarán opciones de los software de servidor que podrían
 
 ---
 
-#### **spigot.yml**
+#### <div id="spigot-yml">**spigot.yml**</div>
 
 `max-tick-time`
 
@@ -131,6 +267,8 @@ En esta sección se mostrarán opciones de los software de servidor que podrían
 
 - **Explicación:** Habilitar esto evita que el servidor haga tick a los aldeanos que están fuera del rango de activación. Las tareas de los aldeanos en versiones `1.14+` son muy pesadas.
 
+<div id="merge-radius"></div>
+
 `merge-radius`
 
 - **Por defecto:** `item:2.5, exp:3.0`
@@ -149,7 +287,7 @@ En esta sección se mostrarán opciones de los software de servidor que podrían
 
 ---
 
-#### **paper.yml**
+#### <div id="paper-yml">**paper.yml**
 
 `max-auto-save-chunks-per-tick`
 
@@ -241,6 +379,8 @@ En esta sección se mostrarán opciones de los software de servidor que podrían
 
 - **Explicación:** Sistema de redstone alternativo mucho más rápido. Reduce las actualizaciones de redstone redundates en cerca de un 95%.
 
+<div id="#alt-item-despawn-rate"></div>
+
 `alt-item-despawn-rate.enabled`
 
 - **Por defecto:** `false`
@@ -248,6 +388,8 @@ En esta sección se mostrarán opciones de los software de servidor que podrían
 - **Optimizado:** `true`
 
 - **Explicación:** Esta opción te permitirá desaparecer algunos objetos más rápido que en la tasa de desaparición por defecto. Puedes añadir cosas como cobblestone, netherrack, entre otras a la lista y hacer que desaparezcan después de ~20 segundos (400 ticks).
+
+<div id="enable-treasure-maps"></div>
 
 `enable-treasure-maps`
 
@@ -314,7 +456,7 @@ entity-per-chunk-save-limit:
 
 ---
 
-#### **purpur.yml**
+#### <div id="purpur-yml">**purpur.yml**</div>
 
 `tps-catchup`
 
@@ -322,7 +464,7 @@ entity-per-chunk-save-limit:
 
 - **Optimizado:** `false`
 
-- **Explicación:** La recuperación de TPS hace que tu servidor se ponga en marcha después de las caídas de tps. Si tu servidor está constantemente funcionando a más de 50mspt lo más probable es que vea una mejora en el rendimiento debido a que el servidor no tratará de promediar los tps a 20 al pasar de 20. Toma nota que algunos plugins pueden no esperar que esta característica esté deshabilitada.
+- **Explicación:** La recuperación de TPS hace que tu servidor se ponga en marcha después de las caídas de tps. Si tu servidor está constantemente funcionando a más de `50` mspt lo más probable es que vea una mejora en el rendimiento debido a que el servidor no tratará de promediar los tps a `20` al pasar de `20`. Toma nota que algunos plugins pueden no esperar que esta característica esté deshabilitada.
 
 `use-alternate-keepalive`
 
@@ -362,7 +504,7 @@ entity-per-chunk-save-limit:
 
 - **Optimizado:** `true`
 
-- **Explicación:** Evita que los delfines hagan una búsqueda de estructuras similar a la de los mapas del tesoro ([enable-treasure-maps]()).
+- **Explicación:** Evita que los delfines hagan una búsqueda de estructuras similar a la de los mapas del tesoro ([enable-treasure-maps](enable-treasure-maps)).
 
 `mobs.zombie.aggressive-towards-villager-when-lagging`
 
