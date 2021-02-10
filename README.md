@@ -4,9 +4,11 @@ Esta es una documentación bastante sencilla en base a archivos Markdown, la cua
 
 ## Índice
 
-- [Documentación de desarrollo](https://github.com/ZafireStudios/spigot-docs-spanish/tree/main/development)
+- [Desarrollo](https://github.com/ZafireStudios/spigot-docs-spanish/tree/main/development)
   - [Archivo plugin.yml](https://github.com/ZafireStudios/spigot-docs-spanish/blob/main/development/PLUGIN-YML.md)
-  - [Plugin usando Maven en IntelliJ IDEA](https://github.com/ZafireStudios/spigot-docs-spanish/blob/main/development/PLUGIN-MAVEN-INTELLIJ.md)
+  - [Creación de plugin usando Maven en IntelliJ IDEA](https://github.com/ZafireStudios/spigot-docs-spanish/blob/main/development/PLUGIN-MAVEN-INTELLIJ.md)
+- [Servidores](https://github.com/ZafireStudios/spigot-docs-spanish/tree/main/servers)
+  - [Guía de optimización para servidores de Minecraft](https://github.com/ZafireStudios/spigot-docs-spanish/blob/main/development/OPTIMIZATION_GUIDE.md)
 
 ### Solicitar documentación
 

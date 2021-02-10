@@ -1,4 +1,4 @@
-# <div id="plugin-maven-intellij">Plugin usando Maven en IntelliJ IDEA <font size="2px">([original](https://www.spigotmc.org/wiki/creating-a-plugin-with-maven-using-intellij-idea/))</font></div>
+# <div id="plugin-maven-intellij">Creación de plugin usando Maven en IntelliJ IDEA <font size="2px">([original](https://www.spigotmc.org/wiki/creating-a-plugin-with-maven-using-intellij-idea/))</font></div>
 
 Maven es una herramienta de gestión y comprensión de proyectos de software, cual le pertenece a Apache.
 El principal objetivo de Maven es facilitar el proceso de compilado y construcción. Y eso es exactamente lo que queremos.
@@ -13,7 +13,6 @@ En este tutorial se mostrará cómo crear un plugin usando la API de Spigot usan
 - [Creando la clase principal del plugin](#clase-principal)
 - [Creando el archivo plugin.yml](#plugin-yml)
 - [Compilando el plugin](#compilando)
-
 
 ### <div id="pre-requisitos">Pre-requisitos <font size="2px">([inicio](#plugin-maven-intellij))</font></div>
 
@@ -88,7 +87,7 @@ Algo así debería verse:
 
 ![Proyecto Maven de SpigotMC en IntelliJ IDEA 2020.3](https://i.imgur.com/PDoN5iF.png)
 
-Finalmente, debemos los cambios a Maven. 
+Finalmente, debemos los cambios a Maven.
 
 En IntelliJ IDEA esto puede ser hecho presionando el ícono que aparece en el lado derecho, el cual se ve de esta forma: ![Recargar proyecto Maven en IntelliJ IDEA 2020.3](https://i.imgur.com/sLohass.png)
 
@@ -153,7 +152,6 @@ public class MiPlugin extends JavaPlugin {
 ```
 
 Podemos añadir mucho más de lo que hemos añadido hasta ahora, pero primero crearemos nuestro archivo [plugin.yml](https://github.com/ZafireStudios/spigot-docs-spanish/blob/main/development/PLUGIN-YML.md), desde el cual el servidor Spigot lee más información sobre nuestro plugin.
-
 
 ### <div id="plugin-yml">Creando el archivo plugin.yml <font size="2px">([inicio](#plugin-maven-intellij))</font></div>
 
