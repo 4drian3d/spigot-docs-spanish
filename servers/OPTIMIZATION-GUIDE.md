@@ -39,6 +39,7 @@ Tu elección de software de servidor (el archivo JAR, al cual muy comúnmente se
 - [Paper](https://papermc.io/) - Este el el software de servidor más popular enfocado en mejorar el rendimiento, al igual que arreglar el juego e inconsistencias en las mecánicas.
 - [Tuinity](https://github.com/Spottedleaf/Tuinity) - Un fork (derivado) de Paper que se enfoca en mejorar el rendimiento del servidor aún más que Paper.
 - [Purpur](https://github.com/pl3xgaming/Purpur) - Un fork (derivado) de Tuinity que se enfoca en ofrecerle al dueño del servidor más libertad en la configuración de funciones del juego.
+- [Airplane](https://airplane.gg/) - Un fork (derivado) de Tuinity que apunta a mejorar aún más el rendimiento en grandes servidores, con grandes cantidades de entidades, jugadores y chunks.
 
 #### <div id="software-no-recomendado">**Software no recomendado**</div>
 
@@ -119,6 +120,7 @@ Asegúrate de establecer un borde para que tus jugadores no generen nuevos chunk
 Es clave de recordar que el mundo normal, el nether y el end tienen bordes de mundo separados que debes establecer en cada mundo. La dimensión del nether es 8 veces más pequeña que el mundo normal (si no está modificado por un datapack), sasí que si estableces mal el tamaño tus jugadores podrían terminar el otro lado del borde del mundo.
 
 Ejemplo:
+
 - Estableciendo un borde en un área 20000 bloques desde la coordenada 0,0:
 
 ```txt
