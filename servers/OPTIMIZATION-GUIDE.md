@@ -28,6 +28,7 @@ Nunca habrá una guía que puedas seguir y que te otorgue resultados perfectos. 
   - [bukkit.yml](#bukkit-yml)
   - [spigot.yml](#spigot-yml)
   - [paper.yml](#paper-yml)
+  - [tuinity.yml](#tuinity.yml)
   - [purpur.yml](#purpur-yml)
 
 ### <div id="software-de-servidor">Software de servidor ([inicio](#guia-de-optimizacion))</div>
@@ -455,6 +456,66 @@ entity-per-chunk-save-limit:
 - **Optimizado:** `true`
 
 - **Explicación:** Esconde menas de jugadores con X-ray. Para una configuración detallada de esta función, revisa los [ajustes recomendados de Stonar96](https://gist.github.com/stonar96/ba18568bd91e5afd590e8038d14e245e).
+
+---
+
+#### <div id="tuinity-yml">**tuinity.yml**
+
+`delay-chunkunloads-by`
+
+- **Por defecto:** `5`
+
+- **Optimizado:** `5`
+
+- **Explicación:** Retrasa la descarga de chunks en el tiempo especificado (en segundos).
+
+`lag-compensate-block-breaking`
+
+- **Por defecto:** `true`
+
+- **Optimizado:** `true`
+
+- **Explicación:** Esta opción te permite determinar si romper bloques se ve impactado por los TPS. En Minecraft Vanilla, el tiempo en el que el bloque se rompe es determinado por los TPS del servidor, si los TPS son bajos, la ruptura del bloque toma más tiempo. Sin embargo, el cliente piensa que el bloque se rompe a 20 TPS, esto puede causar desacuerdos con el servidor sobre si el bloque está roto o no. La compensación de lag arregla esto calculando los checks del servidor con tiempo en vez de ticks.
+
+`use-new-light-engine`
+
+- **Por defecto:** `true`
+
+- **Optimizado:** `true`
+
+- **Explicación:** Esta opción habilita el nuevo sistema de iluminación llamado [Starlight](https://github.com/Spottedleaf/Starlight), el cual mejora enormemente el rendimiento. Esta opción usualmente viene activada por defecto en nuevas versiones de Tuinity y forks de este mismo, pero igualmente se lo recuerdo por si usted no lo tiene activado. Nota: Deshabilitarlo puede ser útil para debug y buscar incompatibilidades con algunos plugins que tal vez necesiten el sistema de iluminación de Minecraft Vanilla.
+
+`world-settings`
+
+- **Por defecto:**
+
+```yaml
+world-settings:
+  default:
+    spawn-limits:
+      monsters: -1
+      animals: -1
+      water-ambient: -1
+      water-animals: -1
+      ambient: -1
+  world: {}
+```
+
+- **Optimizado:**
+
+```yaml
+world-settings:
+  default:
+    spawn-limits:
+      monsters: -1
+      animals: -1
+      water-ambient: -1
+      water-animals: -1
+      ambient: -1
+  world: {}
+```
+
+- **Explicación:** Básicamente cumple la misma función que [spawn-limits](#spawn-limits), pero por mundos, por lo que lo mejor es dejarlo en `-1` para así ocupar los valores de `bukkit.yml`. En caso de que tengas algún mundo con algún tipo de mazmorra o algún mundo en el que quieras tener más mobs, solamente reemplaza `world` con el nombre del mundo y añades lo mismo que está en `default.spawn-limits` pero modificándolo con los valores deseados, puedes ver un ejemplo haciendo [click aquí](https://sourceb.in/Bi06rQ5FIN).
 
 ---
 
