@@ -28,7 +28,7 @@ Nunca habrá una guía que puedas seguir y que te otorgue resultados perfectos. 
   - [bukkit.yml](#bukkit-yml)
   - [spigot.yml](#spigot-yml)
   - [paper.yml](#paper-yml)
-  - [tuinity.yml](#tuinity.yml)
+  - [tuinity.yml](#tuinity-yml)
   - [purpur.yml](#purpur-yml)
 
 ### <div id="software-de-servidor">Software de servidor ([inicio](#guia-de-optimizacion))</div>
