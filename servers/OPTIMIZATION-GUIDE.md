@@ -37,7 +37,7 @@ Tu elección de software de servidor (el archivo JAR, al cual muy comúnmente se
 
 #### <div id="software-recomendado">**Software recomendado**</div>
 
-- [Paper](https://papermc.io/) - Este el el software de servidor más popular enfocado en mejorar el rendimiento, al igual que arreglar el juego e inconsistencias en las mecánicas.
+- [Paper](https://papermc.io/) - Este es el software de servidor más popular enfocado en mejorar el rendimiento, al igual que arreglar el juego e inconsistencias en las mecánicas.
 - [Tuinity](https://github.com/Spottedleaf/Tuinity) - Un fork (derivado) de Paper que se enfoca en mejorar el rendimiento del servidor aún más que Paper.
 - [Purpur](https://github.com/pl3xgaming/Purpur) - Un fork (derivado) de Tuinity que se enfoca en ofrecerle al dueño del servidor más libertad en la configuración de funciones del juego.
 - [Airplane](https://airplane.gg/) - Un fork (derivado) de Tuinity dedicado especialmente grandes servidores, con grandes cantidades de entidades, jugadores (100 o más) y chunks. Recomendado para servidores dedicados, la mejora no será notoria en un hosting de Minecraft o una VPS por lo que en esos casos es mejor usar Tuinity o Purpur.
