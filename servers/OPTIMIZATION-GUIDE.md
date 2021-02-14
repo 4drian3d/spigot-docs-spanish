@@ -37,7 +37,7 @@ Tu elección de software de servidor (el archivo JAR, al cual muy comúnmente se
 
 #### <div id="software-recomendado">**Software recomendado**</div>
 
-- [Paper](https://papermc.io/) - Este el el software de servidor más popular enfocado en mejorar el rendimiento, al igual que arreglar el juego e inconsistencias en las mecánicas.
+- [Paper](https://papermc.io/) - Este es el software de servidor más popular enfocado en mejorar el rendimiento, al igual que arreglar el juego e inconsistencias en las mecánicas.
 - [Tuinity](https://github.com/Spottedleaf/Tuinity) - Un fork (derivado) de Paper que se enfoca en mejorar el rendimiento del servidor aún más que Paper.
 - [Purpur](https://github.com/pl3xgaming/Purpur) - Un fork (derivado) de Tuinity que se enfoca en ofrecerle al dueño del servidor más libertad en la configuración de funciones del juego.
 - [Airplane](https://airplane.gg/) - Un fork (derivado) de Tuinity dedicado especialmente grandes servidores, con grandes cantidades de entidades, jugadores (100 o más) y chunks. Recomendado para servidores dedicados, la mejora no será notoria en un hosting de Minecraft o una VPS por lo que en esos casos es mejor usar Tuinity o Purpur.
@@ -202,9 +202,27 @@ En esta sección se mostrarán opciones de los software de servidor que podrían
 
 `spawn-limits`
 
-- **Por defecto:** `monsters: 70, animals: 10, water-animals: 15, water-ambient: 20, ambient:15`
+- **Por defecto:**
 
-- **Optimizado:** `monsters: 12, animals: 5, water-animals: 2, water-ambient: 2, ambient: 0`
+```yaml
+spawn-limits:
+  monsters: 70
+  animals: 10
+  water-animals: 15
+  water-ambient: 20
+  ambient: 15
+```
+
+- **Optimizado:**
+
+```yaml
+spawn-limits:
+  monsters: 12
+  animals: 5
+  water-animals: 5
+  water-ambient: 2
+  ambient: 0
+```
 
 - **Explicación:** Valores menores significan menos mobs. Menos mobs es menos lag en general, pero debes intentar balancearlo para mantener la calidad de juego, encontrar mobs en un mundo es una gran parte del juego. Con [per-player-mob-spawns](#per-player-mob-spawns) esos números básicamente representan `1:1` del límite de mobs en la categoría dada por cada jugador, así que la matemática de esto es `cantidad-jugadores*límite` donde "cantidad-jugadores" es la cantidad de jugadores conectados actual en el servidor.
 
@@ -218,23 +236,33 @@ En esta sección se mostrarán opciones de los software de servidor que podrían
 
 `ticks-per`
 
-- **Por defecto:** `monster-spawn: 1, animal-spawns: 400, water-spawns: 1, ambient-spawns: 1, water-ambient-spawns: 1`
+- **Por defecto:**
 
-- **Optimizado:** `monster-spawn: 10, animal-spawns: 400, water-spawns: 40, ambient-spawns: 40, water-ambient-spawns: 40`
+```yaml
+ticks-per:
+  animal-spawns: 400
+  monster-spawns: 1
+  water-spawns: 1
+  water-ambient-spawns: 1
+  ambient-spawns: 1
+```
+
+- **Optimizado:**
+
+```yaml
+ticks-per:
+  animal-spawns: 400
+  monster-spawns: 10
+  water-spawns: 40
+  water-ambient-spawns: 40
+  ambient-spawns: 40
+```
 
 - **Explicación:** Esto establece que tan frecuentemente (en ticks, 20 ticks equivale a 1 segundo) el servidor intenta aparecer ciertos tipos de entidades vivas. Mobs de agua/ambiente no necesitan aparece cada tick debido a que no son usualmente asesinados rápidamente. Para los monstruos: Incrementar un poco el tiempo entre apariciones no debería impactar en la tasa de apariciones, ni tampoco en granjas de mobs.
 
 ---
 
 #### <div id="spigot-yml">**spigot.yml**</div>
-
-`max-tick-time`
-
-- **Por defecto:** `tile: 50, entity: 50`
-
-- **Optimizado:** `tile: 1000, entity: 1000`
-
-- **Explicación:** Establecer esto a los valores recomendados lo desactiva. Puedes leer el por qué debería estar desactivado desde [aquí](https://aikar.co/2015/10/08/spigot-tick-limiter-dont-use-max-tick-time/).
 
 <div id="view-distance"></div>
 
@@ -246,6 +274,34 @@ En esta sección se mostrarán opciones de los software de servidor que podrían
 
 - **Explicación:** Establecer la distancia de vista en un valor menor hará menos ticks de chunks, y con la opción [no-tick-view-distance](#no-tick-view-distance) activado podrás enviar más chunks a un jugador que realmente hagan tick. Si tienes problemas con el valor optimizado, puedes aumentarlo a `4` y aún así tendrás un rendimiento decente.
 
+<div id="item-despawn-rate"></div>
+
+`item-despawn-rate`
+
+- **Por defecto:** `6000`
+
+- **Optimizado:** `¿Valores menores?`
+
+- **Explicación:** Una de las razones por la que no son necesarios plugins como ClearLagg es esta opción, ya que te permite remover objetos del suelo en un tiempo determinado de ticks. En el valor por defecto son 5 minutos, pero dependiendo del tipo del servidor que tengas debes bajarlo.
+
+`arrow-despawn-rate`
+
+- **Por defecto:** `1200`
+
+- **Optimizado:** `300`
+
+- **Explicación:** Similar a [item-despawn-rate](#item-despawn-rate), pero para las flechas lanzadas en general. Aquí lo estaríamos estableciendo en 15 segundos (300 ticks) en vez de 60 segundos (1200 ticks).
+
+<div id="nerf-spawner-mobs"></div>
+
+`nerf-spawner-mobs`
+
+- **Por defecto:** `false`
+
+- **Optimizado:** `true`
+
+- **Explicación:** Cuando está activado, los mobs de los spawners no tendrán IA (no nadarán, atacarán o se moverán). Esto beneficia bastante a los TPS en servidores con granjas de mobs, pero también arruina la mecánica de éstas; en caso de que se quiera activar, también se recomienda activar [spawner-nerfed-mobs-should-jump](#spawner-nerfed-mobs-should-jump) para así no arruinar tanto la mecánica.
+
 `mob-spawn-range`
 
 - **Por defecto:** `8`
@@ -254,11 +310,99 @@ En esta sección se mostrarán opciones de los software de servidor que podrían
 
 - **Explicación:** Algunas personas discuten que establecer esto a uno menos que [view-distance](#view-distance) es bueno, pero valores menores como `2` o `3` te permitirán disminuir la cantidad de mobs en [spawn-limits](#spawn-limits).
 
+`max-entity-collisions`
+
+- **Por defecto:** `8`
+
+- **Optimizado:** `2`
+
+- **Explicación:** Limita la cantidad de colisiones que una entidad calculará al mismo tiempo. Establecer esto en el valor optimizado te permitirá mantener la habilidad del jugador para empujar mobs. Establecer esto a 0 completamente desactivaría las colisiones, haciendo que empujar mobs/jugadores sea imposible.
+
+<div id="merge-radius"></div>
+
+`merge-radius`
+
+- **Por defecto:**
+
+```yaml
+merge-radius:
+  exp: 3.0
+  item: 2.5
+```
+
+- **Optimizado:**
+
+```yaml
+merge-radius:
+  exp: 6.0
+  item: 3.0
+```
+
+- **Explicación:** Esto decidirá la distancia entre los objetos que serán juntados, reduciendo la cantidad de items tickeando en el suelo. Juntarlos llevará a la ilusión de que los objetos han desaparecido, al combinarse en uno solo.
+
+<div id ="entity-activation-range"></div>
+
 `entity-activation-range`
 
-- **Por defecto:** `animals:32, monsters:32, raiders: 48, misc:16`
+- **Por defecto:**
 
-- **Optimizado:** `animals:16, monsters:24, raiders: 48, misc:8`
+```yaml
+entity-activation-range:
+  animals: 32
+  monsters: 32
+  raiders: 48
+  misc: 16
+  water: 16
+  villagers: 32
+  flying-monsters: 32
+  villagers-work-immunity-after: 100
+  villagers-work-immunity-for: 20
+  villagers-active-for-panic: true
+  tick-inactive-villagers: true
+  wake-up-inactive:
+    animals-max-per-tick: 4
+    animals-every: 1200
+    animals-for: 100
+    monsters-max-per-tick: 8
+    monsters-every: 400
+    monsters-for: 100
+    villagers-max-per-tick: 4
+    villagers-every: 600
+    villagers-for: 100
+    flying-monsters-max-per-tick: 8
+    flying-monsters-every: 200
+    flying-monsters-for: 100
+```
+
+- **Optimizado:**
+
+```yaml
+entity-activation-range:
+  animals: 16
+  monsters: 16
+  raiders: 48
+  misc: 12
+  water: 12
+  villagers: 16
+  flying-monsters: 32
+  villagers-work-immunity-after: 100
+  villagers-work-immunity-for: 20
+  villagers-active-for-panic: true
+  tick-inactive-villagers: false
+  wake-up-inactive:
+    animals-max-per-tick: 2
+    animals-every: 1200
+    animals-for: 40
+    monsters-max-per-tick: 4
+    monsters-every: 400
+    monsters-for: 60
+    villagers-max-per-tick: 1
+    villagers-every: 600
+    villagers-for: 20
+    flying-monsters-max-per-tick: 1
+    flying-monsters-every: 200
+    flying-monsters-for: 60
+```
 
 - **Explicación:** Entidades pasado este rango serán menos tickeadas frecuentemente. Evita establecer esto muy bajo o podrías romper las mecánicas de los mobs.
 
@@ -268,29 +412,39 @@ En esta sección se mostrarán opciones de los software de servidor que podrían
 
 - **Optimizado:** `false`
 
-- **Explicación:** Habilitar esto evita que el servidor haga tick a los aldeanos que están fuera del rango de activación. Las tareas de los aldeanos en versiones `1.14+` son muy pesadas.
+- **Explicación:** Desactivar esto evita que el servidor haga tick a los aldeanos que están fuera del rango de activación (esto ya es desactivado anteriormente en [entity-activation-range](#entity-activation-range)).. Las tareas de los aldeanos en versiones `1.14+` son muy pesadas.
 
-<div id="merge-radius"></div>
+`max-tick-time`
 
-`merge-radius`
+- **Por defecto:**
 
-- **Por defecto:** `item:2.5, exp:3.0`
+```yaml
+max-tick-time:
+  tile: 50
+  entity: 50
+```
 
-- **Optimizado:** `item:3.0, exp:6.0`
+- **Optimizado:**
 
-- **Explicación:** Esto decidirá la distancia entre los objetos que serán juntados, reduciendo la cantidad de items tickeando en el suelo. Juntarlos llevará a la ilusión de que los objetos han desaparecido, al combinarse en uno solo.
+```yaml
+max-tick-time:
+  tile: 1000
+  entity: 1000
+```
 
-`nerf-spawner-mobs`
+- **Explicación:** Establecer esto a los valores recomendados lo desactiva. Puedes leer el por qué debería estar desactivado desde [aquí](https://aikar.co/2015/10/08/spigot-tick-limiter-dont-use-max-tick-time/).
+
+---
+
+#### <div id="paper-yml">**paper.yml**
+
+`optimize-explosions`
 
 - **Por defecto:** `false`
 
 - **Optimizado:** `true`
 
-- **Explicación:** Cuando está activado, los mobs de los spawners no tendrán IA (no nadarán, atacarán o se moverán). Esto beneficia bastante a los TPS en servidores con granjas de mobs, pero también arruina la mecánica de éstas.
-
----
-
-#### <div id="paper-yml">**paper.yml**
+- **Explicación:** Algoritmo más rápido de explosión sin ningún impacto notable en la jugabilidad.
 
 `max-auto-save-chunks-per-tick`
 
@@ -310,14 +464,6 @@ En esta sección se mostrarán opciones de los software de servidor que podrían
 
 - **Explicación:** Por defecto los límites de mob están contados para el servidor entero, lo que significa que los mobs probablemente terminen distribuidos de forma desigual entre los jugadores conectados. Esta opción habilita los límites de mobs por jugador, haciendo así que cada jugador pueda obtener aproximadamente la misma cantidad de mobs independiente de la cantidad de jugadores en línea. Habilitar esta opción también te permite disminuir el valor por defecto de [spawn-limits](#spawn-limits) en `bukkit.yml`, ya que éstos están optimizados para límite de mobs para todo el servidor.
 
-`optimize-explosions`
-
-- **Por defecto:** `false`
-
-- **Optimizado:** `true`
-
-- **Explicación:** Algoritmo más rápido de explosión sin ningún impacto notable en la jugabilidad.
-
 `max-entity-collisions`
 
 - **Por defecto:** `8`
@@ -334,21 +480,53 @@ En esta sección se mostrarán opciones de los software de servidor que podrían
 
 - **Explicación:** Tiempo en ticks (20 ticks equivalen a 1 segundo) en el que el servidor intenta esparcir el pasto/micelio. No afecta a la jugabilidad en la mayoría de los casos.
 
-`despawn-ranges`
-
-- **Por defecto:** `soft: 32, hard: 128`
-
-- **Optimizado:** `soft: 28, hard: 52`
-
-- **Explicación:** Reduce el rango de limpieza de mobs en segundo plano y permite que más aparezcan en áreas de tráfico de jugadores. Esto reduce el impacto en la jugabilidad por las apariciones reducidas de `bukkit.yml`. Valores ajustados para [view-distance](#view-distance) en `3`.
-
-`hopper.disable-move-event`
+`use-faster-eigencraft-redstone`
 
 - **Por defecto:** `false`
 
 - **Optimizado:** `true`
 
-- **Explicación:** `InventoryMoveItemEvent` no es lanzado a menos que tengas un plugin activamente escuchando ese evento. Esto significa que deberías colocar esto en `true` solamente si no tienes plugins que modifiquen mecánicas de las tolvas o no te importa que no puedan escuchar este evento. Un ejemplo de plugin que utiliza esta mecánica sería los de protecciones.
+- **Explicación:** Sistema de redstone alternativo mucho más rápido. Reduce las actualizaciones de redstone redundates en cerca de un 95%.
+
+`armor-stands-do-collision-entity-lookups`
+
+- **Por defecto:** `true`
+
+- **Optimizado:** `false`
+
+- **Explicación:** Desactiva que los soportes de armadura (armor stands) tengan colisiones, es decir, no podrán ser empujados por entidades.
+
+`prevent-moving-into-unloaded-chunks`
+
+- **Por defecto:** `false`
+
+- **Optimizado:** `true`
+
+- **Explicación:** Previene que los jugadores entren a chunks no cargados (debido al lag), lo cual causa más lag. Establecer esto a `true` los devolverá a su última ubicación segura en caso de que suceda esto.
+
+`container-update-tick-rate`
+
+- **Por defecto:** `1`
+
+- **Optimizado:** `3`
+
+- **Explicación:** Cuando un inventario o cofre es abierto, Minecraft actualiza la vista cada tick por defecto para mostrar apropiadamente los cambios. Puedes disminuir qué tan frecuentemente se actualiza el inventario, pero no uses valores más altos que `3` o `4` ya que podría causar molestias visuales.
+
+`fix-climbing-bypassing-cramming-rule`
+
+- **Por defecto:** `false`
+
+- **Optimizado:** `true`
+
+- **Explicación:** Arregla una forma de evadir el límite de mobs en un solo bloque, que se basa en colocar mobs en distintos niveles. De esta forma evitamos que se junten grandes cantidades de entidades en un solo bloque.
+
+`armor-stands-tick`
+
+- **Por defecto:** `true`
+
+- **Optimizado:** `false`
+
+- **Explicación:** La única cosa que hace que los soportes de armaduras sean tickeados es para verificar si están siendo empujadas por agua. Desactivando esto, eres libre de liberar algunos procesos de tick y solamente perder una mecánica menor.
 
 `non-player-arrow-despawn-rate`
 
@@ -366,31 +544,23 @@ En esta sección se mostrarán opciones de los software de servidor que podrían
 
 - **Explicación:** El tiempo en ticks (20 ticks equivale a 1 segundo) en el que las flechas disparadas por jugadores en creativo desaparecen. En este caso desaparecerán en 1 segundo tras ser disparadas.
 
-`prevent-moving-into-unloaded-chunks`
+<div id="spawner-nerfed-mobs-should-jump"></div>
+
+`spawner-nerfed-mobs-should-jump`
 
 - **Por defecto:** `false`
 
 - **Optimizado:** `true`
 
-- **Explicación:** Previene que los jugadores entren a chunks no cargados (debido al lag), lo cual causa más lag. Establecer esto a `true` los devolverá a su última ubicación segura en caso de que suceda esto.
+- **Explicación:** Hace que los mobs de spawners salten a pesar de ser nerfeados en la opción [nerf-spawner-mobs](#nerf-spawner-mobs), haciendo así que la mecánica de las granjas de spawners no se vea tan afectada sin afectar al rendimiento.
 
-`use-faster-eigencraft-redstone`
+`mob-spawner-tick-rate`
 
-- **Por defecto:** `false`
+- **Por defecto:** `1`
 
-- **Optimizado:** `true`
+- **Optimizado:** `2`
 
-- **Explicación:** Sistema de redstone alternativo mucho más rápido. Reduce las actualizaciones de redstone redundates en cerca de un 95%.
-
-<div id="#alt-item-despawn-rate"></div>
-
-`alt-item-despawn-rate.enabled`
-
-- **Por defecto:** `false`
-
-- **Optimizado:** `true`
-
-- **Explicación:** Esta opción te permitirá desaparecer algunos objetos más rápido que en la tasa de desaparición por defecto. Puedes añadir cosas como cobblestone, netherrack, entre otras a la lista y hacer que desaparezcan después de ~20 segundos (400 ticks).
+- **Explicación:** Determina qué tan frecuente los spawners deben hacer tick para calcular el área disponible y aparecer nuevas entidades en el mundo. Esto ayuda bastante a servidores con grandes granjas con spawners.
 
 <div id="enable-treasure-maps"></div>
 
@@ -410,6 +580,98 @@ En esta sección se mostrarán opciones de los software de servidor que podrían
 
 - **Explicación:** El valor por defecto forza a los mapas generados recientemente a buscar estructuras inexploradas que usualmente están fuera del terreno generado. Estableciendo esto a `true` se hace que los mapas puedan llevar a estructuras ya descubiertas.
 
+`game-mechanics.disable-chest-cat-detection`
+
+- **Por defecto:** `false`
+
+- **Optimizado:** `true`
+
+- **Explicación:** Desactiva la mecánica que previene abrir un cofre cuando un gato está encima, algo bastante inútil y tierno al mismo tiempo.
+
+`entity-per-chunk-save-limit`
+
+- **Por defecto:**
+
+```yaml
+entity-per-chunk-save-limit:
+  experience_orb: -1
+  snowball: -1
+  ender_pearl: -1
+  arrow: -1
+```
+
+- **Optimizado:**
+
+```yaml
+entity-per-chunk-save-limit:
+  experience_orb: 16
+  arrow: 16
+  dragonfireball: 8
+  egg: 8
+  ender_pearl: 16
+  fireball: 8
+  firework: 8
+  largefireball: 8
+  lingeringpotion: 8
+  llamaspit: 8
+  shulkerbullet: 8
+  sizedfireball: 8
+  snowball: 16
+  spectralarrow: 8
+  splashpotion: 8
+  thrownexpbottle: 8
+  trident: 8
+  witherskull: 8
+```
+
+- **Explicación:** Limita la cantidad de proyectiles que pueden ser guardados en un chunk. Esto previene problemas que surgen cuando se disminuye la opción [view-distance](#view-distance), como jugadores lanzando cantidades masivas de bolas de nieve a un chunk no cargado que puede causar un potencial crasheo al intentar cargar ese chunk.
+
+`despawn-ranges`
+
+- **Por defecto:**
+
+```yaml
+despawn-ranges:
+  soft: 32
+  hard: 128
+```
+
+- **Optimizado:**
+
+```yaml
+despawn-ranges:
+  soft: 28
+  hard: 52
+```
+
+- **Explicación:** Reduce el rango de limpieza de mobs en segundo plano y permite que más aparezcan en áreas de tráfico de jugadores. Esto reduce el impacto en la jugabilidad por las apariciones reducidas de `bukkit.yml`. Valores ajustados para [view-distance](#view-distance) en `3`.
+
+<div id="#alt-item-despawn-rate"></div>
+
+`alt-item-despawn-rate.enabled`
+
+- **Por defecto:** `false`
+
+- **Optimizado:** `true`
+
+- **Explicación:** Esta opción te permitirá desaparecer algunos objetos más rápido que en la tasa de desaparición por defecto. Puedes añadir cosas como cobblestone, netherrack, entre otras a la lista y hacer que desaparezcan después de ~20 segundos (400 ticks).
+
+`hopper.disable-move-event`
+
+- **Por defecto:** `false`
+
+- **Optimizado:** `true`
+
+- **Explicación:** `InventoryMoveItemEvent` no es lanzado a menos que tengas un plugin activamente escuchando ese evento. Esto significa que deberías colocar esto en `true` solamente si no tienes plugins que modifiquen mecánicas de las tolvas o no te importa que no puedan escuchar este evento. Un ejemplo de plugin que utiliza esta mecánica sería los de protecciones.
+
+`anti-xray.enabled`
+
+- **Por defecto:** `false`
+
+- **Optimizado:** `true`
+
+- **Explicación:** Esconde menas de jugadores con X-ray. Para una configuración detallada de esta función, revisa los [ajustes recomendados de Stonar96](https://gist.github.com/stonar96/ba18568bd91e5afd590e8038d14e245e).
+
 <div id="no-tick-view-distance"></div>
 
 `viewdistances.no-tick-view-distance`
@@ -419,43 +681,6 @@ En esta sección se mostrarán opciones de los software de servidor que podrían
 - **Optimizado:** `8`
 
 - **Explicación:** Esto permite a los jugadores a ver más allá sin hacer tick a tantos chunks como el [view-distance](#view-distance) regular lo haría. Aunque no sea realmente pesado para el servidor, ten en cuenta que enviar más chunks afectará al consumo de ancho de banda.
-
-`entity-per-chunk-save-limit`
-
-- **Por defecto:** `-1`
-
-- **Optimizado:**
-
-```yaml
-entity-per-chunk-save-limit:
-    arrow: 8
-    dragonfireball: 8
-    egg: 8
-    ender_pearl: 8
-    fireball: 8
-    firework: 8
-    largefireball: 8
-    lingeringpotion: 8
-    llamaspit: 8
-    shulkerbullet: 8
-    sizedfireball: 8
-    snowball: 8
-    spectralarrow: 8
-    splashpotion: 8
-    thrownexpbottle: 8
-    trident: 8
-    witherskull: 8
-```
-
-- **Explicación:** Limita la cantidad de proyectiles que pueden ser guardados en un chunk. Esto previene problemas que surgen cuando se disminuye la opción [view-distance](#view-distance), como jugadores lanzando cantidades masivas de bolas de nieve a un chunk no cargado que puede causar un potencial crasheo al intentar cargar ese chunk.
-
-`anti-xray.enabled`
-
-- **Por defecto:** `false`
-
-- **Optimizado:** `true`
-
-- **Explicación:** Esconde menas de jugadores con X-ray. Para una configuración detallada de esta función, revisa los [ajustes recomendados de Stonar96](https://gist.github.com/stonar96/ba18568bd91e5afd590e8038d14e245e).
 
 ---
 
