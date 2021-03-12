@@ -1,6 +1,6 @@
 # <div id="guia-de-optimizacion">Guía de optimización para servidores de Minecraft ([Fuente original](https://github.com/YouHaveTrouble/minecraft-optimization))</div>
 
-Esta es una guía de optimización adaptada para las versiones más actuales de Minecraft (a pesar de ello, igualmente puedes usar ciertos ajustes en versiones obsoletas), y se basa principalmente en lo que establece [esta guía](https://www.spigotmc.org/threads/guide-server-optimization%E2%9A%A1.283181/) y otras fuentes que serán citadas cuando sea relevante.
+Esta es una guía de optimización adaptada para las versiones más actuales de Minecraft (a pesar de ello, igualmente puedes usar ciertos ajustes en versiones obsoletas), que se basa principalmente en lo que establece [esta guía](https://www.spigotmc.org/threads/guide-server-optimization%E2%9A%A1.283181/) y otras fuentes que serán citadas cuando sea relevante.
 
 Nunca habrá una guía que puedas seguir y que te otorgue resultados perfectos. Cada servidor tiene sus propias necesidades y límites en lo que puedas o te atrevas a sacrificar. La idea es ir jugando con las opciones para ajustarlas a la necesidad de cada servidor. Esta guía solamente se enfoca en ayudarte a entender qué opciones tendrán impacto en el rendimiento y exactamente qué cambiarán, por lo que no es recomendable ir colocando cada opción sin haber leído previamente su descripción.
 
@@ -10,7 +10,7 @@ Nunca habrá una guía que puedas seguir y que te otorgue resultados perfectos. 
   - [Software recomendado](#software-recomendado)
   - [Software no recomendado](#software-no-recomendado)
 - [Pre-generación del mapa](#pre-generacion-mapa)
-  - [Beneficios y cómo pre-generar un mapa](#beneficios-como-pre-generar-mapa)
+  - [¿Qué es la pre-generación de mapa?](#beneficios-como-pre-generar-mapa)
   - [Estableciendo un borde del mapa](#borde-mapa)
 - [Configuración de Java](#configuracion-java)
   - [Parámetros de la JVM](#parametros-jvm)
@@ -37,10 +37,10 @@ Tu elección de software de servidor (el archivo JAR, al cual muy comúnmente se
 
 #### <div id="software-recomendado">**Software recomendado**</div>
 
-- [Paper](https://papermc.io/) - Este es el software de servidor más popular y con menos incompatibilidades enfocado en mejorar el rendimiento, también tiene opciones para mejorar algunas mecánicas de Minecraft.
+- [Paper](https://papermc.io/) - Este es el software de servidor más popular y con menos incompatibilidades enfocado en mejorar el rendimiento, también incluye algunas opciones que ayudan a mejorar las mecánicas de Minecraft Vanilla.
 - [Tuinity](https://github.com/Spottedleaf/Tuinity) - Un fork (derivado) de Paper que se enfoca en mejorar el rendimiento del servidor aún más que Paper. Su principal fortaleza es su sistema de iluminación [Starlight](https://github.com/Spottedleaf/Starlight), el cual mejora mucho el [tiempo de carga de chunks](https://camo.githubusercontent.com/c7a72e2b4f101795e37902c64d09c59a4997bcff2117887b37bd7d6fad03cf1c/68747470733a2f2f692e696d6775722e636f6d2f364f6375794a582e706e67).
-- [Purpur](https://github.com/pl3xgaming/Purpur) - Un fork (derivado) que implementa los parches de Tuinity y Airplane, que se enfoca en ofrecerle al dueño del servidor más libertad en la configuración de funciones del juego. Debido a que desde hace poco usa parches de Airplane, las mejoras de rendimiento son más notarias en servidores dedicados y en VPS o Minecraft hostings de mala calidad podría ser capaz de acabarse los hilos de la CPU, perjudicando así el rendimiento.
-- [Airplane](https://airplane.gg/) - Un fork (derivado) de Tuinity dedicado especialmente grandes servidores, con grandes cantidades de entidades, jugadores (100 o más) y chunks. Recomendado para servidores dedicados, la mejora no será notoria en un hosting de Minecraft o una VPS por lo que en esos casos es mejor usar Tuinity.
+- [Purpur](https://github.com/pl3xgaming/Purpur) - Un fork (derivado) que implementa los parches de Tuinity y Airplane, que se enfoca en ofrecerle al dueño del servidor más libertad en la configuración de funciones del juego. Debido a que desde hace poco usa parches de Airplane, las mejoras de rendimiento son más notarias en servidores dedicados, en cambio, en VPS o Minecraft hostings de mala calidad podría ser capaz de acabarse los hilos de la CPU, perjudicando así el rendimiento.
+- [Airplane](https://airplane.gg/) - Un fork (derivado) de Tuinity dedicado especialmente grandes servidores, con grandes cantidades de entidades, jugadores (100 o más) y chunks. Recomendado para servidores dedicados, lo más probable es que la mejora no sea notoria en un hosting de Minecraft o una VPS que tenga poca potencia, en esos casos es preferible usar Tuinity.
 
 #### <div id="software-no-recomendado">**Software no recomendado**</div>
 
@@ -51,9 +51,9 @@ Tu elección de software de servidor (el archivo JAR, al cual muy comúnmente se
 
 ### <div id="pre-generacion-mapa">Pre-generación del mapa ([inicio](#guia-de-optimizacion))</div>
 
-#### <div id="beneficios-como-pre-generar-mapa">**Beneficios y cómo pre-generar un mapa**</div>
+#### <div id="beneficios-como-pre-generar-mapa">**¿Qué es la pre-generación de mapa?**</div>
 
-La pre-generación del mapa es una de las cosas más importantes para mejorar un servidor de bajo presupuesto. Esto ayuda a servidores que son mantenidos en un nodo compartido de un núcleo de CPU, ya que no pueden utilizar totalmente la carga de chunks async. Puedes usar algún plugin como [Chunky](https://www.spigotmc.org/resources/chunky.81534/) para pre-generar el mundo o en versiones menores a la `1.13`, puedes usar [WorldBorder](https://dev.bukkit.org/projects/worldborder).
+La pre-generación del mapa es una de las cosas más importantes para mejorar un servidor de bajo presupuesto o poco potentes. Esto ayuda a servidores que son mantenidos en un nodo compartido que posea solamente 1 núcleo de CPU (evitar a toda costa), ya que no pueden utilizar totalmente la carga de chunks async. Puedes usar algún plugin como [Chunky](https://www.spigotmc.org/resources/chunky.81534/) para pre-generar el mundo o en versiones menores a la `1.13`, puedes usar una versión obsoleta de [WorldBorder](https://dev.bukkit.org/projects/worldborder).
 
 Ejemplos de **Chunky**:
 
