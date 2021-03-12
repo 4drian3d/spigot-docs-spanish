@@ -1,8 +1,8 @@
 # <div id="guia-de-optimizacion">Guía de optimización para servidores de Minecraft ([Fuente original](https://github.com/YouHaveTrouble/minecraft-optimization))</div>
 
-Ten en cuenta que esta guía está hecha para la versión 1.16.5 de Minecraft (a pesar de ello, igualmente puedes usarla para versiones más obsoletas), basándose en [esta guía](https://www.spigotmc.org/threads/guide-server-optimization%E2%9A%A1.283181/) y otras fuentes (todas son citadas en la guía cuando son relevantes).
+Esta es una guía de optimización adaptada para las versiones más actuales de Minecraft (a pesar de ello, igualmente puedes usar ciertos ajustes en versiones obsoletas), y se basa principalmente en lo que establece [esta guía](https://www.spigotmc.org/threads/guide-server-optimization%E2%9A%A1.283181/) y otras fuentes que serán citadas cuando sea relevante.
 
-Nunca habrá una guía que puedas seguir y que te otorgue resultados perfectos. Cada servidor tiene sus propias necesidades y límites en lo que puedas o te atrevas a sacrificar. La idea es ir jugando con las opciones para ajustarlas a la necesidad de cada servidor. Esta guía solamente se enfoca en ayudarte a entender qué opciones tendrán impacto en el rendimiento y exactamente qué cambiarán.
+Nunca habrá una guía que puedas seguir y que te otorgue resultados perfectos. Cada servidor tiene sus propias necesidades y límites en lo que puedas o te atrevas a sacrificar. La idea es ir jugando con las opciones para ajustarlas a la necesidad de cada servidor. Esta guía solamente se enfoca en ayudarte a entender qué opciones tendrán impacto en el rendimiento y exactamente qué cambiarán, por lo que no es recomendable ir colocando cada opción sin haber leído previamente su descripción.
 
 ## Contenidos
 
@@ -33,20 +33,20 @@ Nunca habrá una guía que puedas seguir y que te otorgue resultados perfectos. 
 
 ### <div id="software-de-servidor">Software de servidor ([inicio](#guia-de-optimizacion))</div>
 
-Tu elección de software de servidor (el archivo JAR, al cual muy comúnmente se le nombra `server.jar`) puede hacer una gran diferencia en el rendimiento y posibilidades que ofrece la API. Actualmente hay múltiples opciones populares viables de software de servidor, pero también hay algunas de las que te debes mantener alejado por varias razones.
+Tu elección de software de servidor (el archivo JAR, al cual muy comúnmente se le nombra `server.jar`) puede hacer una gran diferencia en el rendimiento y en la posibilidades que ofrece la API como tal. Actualmente hay múltiples opciones populares viables de software de servidor, pero también hay algunas de las cuales te debes mantener alejado y evitar a toda costa.
 
 #### <div id="software-recomendado">**Software recomendado**</div>
 
-- [Paper](https://papermc.io/) - Este es el software de servidor más popular enfocado en mejorar el rendimiento, al igual que arreglar el juego e inconsistencias en las mecánicas.
-- [Tuinity](https://github.com/Spottedleaf/Tuinity) - Un fork (derivado) de Paper que se enfoca en mejorar el rendimiento del servidor aún más que Paper.
-- [Purpur](https://github.com/pl3xgaming/Purpur) - Un fork (derivado) de Tuinity que se enfoca en ofrecerle al dueño del servidor más libertad en la configuración de funciones del juego.
-- [Airplane](https://airplane.gg/) - Un fork (derivado) de Tuinity dedicado especialmente grandes servidores, con grandes cantidades de entidades, jugadores (100 o más) y chunks. Recomendado para servidores dedicados, la mejora no será notoria en un hosting de Minecraft o una VPS por lo que en esos casos es mejor usar Tuinity o Purpur.
+- [Paper](https://papermc.io/) - Este es el software de servidor más popular y con menos incompatibilidades enfocado en mejorar el rendimiento, también tiene opciones para mejorar algunas mecánicas de Minecraft.
+- [Tuinity](https://github.com/Spottedleaf/Tuinity) - Un fork (derivado) de Paper que se enfoca en mejorar el rendimiento del servidor aún más que Paper. Su principal fortaleza es su sistema de iluminación [Starlight](https://github.com/Spottedleaf/Starlight), el cual mejora mucho el [tiempo de carga de chunks](https://camo.githubusercontent.com/c7a72e2b4f101795e37902c64d09c59a4997bcff2117887b37bd7d6fad03cf1c/68747470733a2f2f692e696d6775722e636f6d2f364f6375794a582e706e67).
+- [Purpur](https://github.com/pl3xgaming/Purpur) - Un fork (derivado) que implementa los parches de Tuinity y Airplane, que se enfoca en ofrecerle al dueño del servidor más libertad en la configuración de funciones del juego. Debido a que desde hace poco usa parches de Airplane, las mejoras de rendimiento son más notarias en servidores dedicados y en VPS o Minecraft hostings de mala calidad podría ser capaz de acabarse los hilos de la CPU, perjudicando así el rendimiento.
+- [Airplane](https://airplane.gg/) - Un fork (derivado) de Tuinity dedicado especialmente grandes servidores, con grandes cantidades de entidades, jugadores (100 o más) y chunks. Recomendado para servidores dedicados, la mejora no será notoria en un hosting de Minecraft o una VPS por lo que en esos casos es mejor usar Tuinity.
 
 #### <div id="software-no-recomendado">**Software no recomendado**</div>
 
-- Yatopia - Es un total desorden de parches que ni siquiera han sido probados, que llenarán de bugs y harán injugable tu servidor - "¡El poder combinado de forks (derivados) de Paper para una máxima inestabilidad y creación de un servidor inmantenible!".
+- Yatopia - Es un total desorden de parches que ni siquiera han sido probados, que podrían llenar de bugs tu servidor y provocar inestabilidad en las mecánicas - "¡El poder combinado de forks (derivados) de Paper para una máxima inestabilidad y creación de un servidor inmantenible!".
 - Cualquier software de servidor de paga que dice que todo es async, tienes 99.99% de probabilidades de ser estafado.
-- Bukkit/CraftBukkit/Spigot - Extremadamente obsoletos en temas de rendimiento comparados con otros software de servidor accesibles.
+- Vanilla/CraftBukkit/Spigot - Extremadamente obsoletos en temas de rendimiento comparados con otros software de servidor accesibles.
 - Cualquier plugin/software de servidor que activa/desactiva/recarga plugins en tiempo de ejecución. Lee [esta sección](#recargar-plugins) para saber por qué.
 
 ### <div id="pre-generacion-mapa">Pre-generación del mapa ([inicio](#guia-de-optimizacion))</div>
@@ -122,14 +122,14 @@ Es clave de recordar que el mundo normal, el nether y el end tienen bordes de mu
 
 Ejemplo:
 
-- Estableciendo un borde en un área 20000 bloques desde la coordenada 0,0:
+- Estableciendo un borde en un díametro de 20000 bloques desde la coordenada 0,0:
 
 ```txt
 /worldborder center 0 0
 Borde del mundo centrado a las coordenadas 0,0.
 
 /worldborder set 20000
-Borde del mundo establecido en un área de 20000 bloques (10000 por 10000).
+Borde del mundo establecido en un diámetro de 20000 bloques (10000 por 10000).
 ```
 
 ### <div id="configuracion-java">Configuración de Java ([inicio](#guia-de-optimizacion))</div>
@@ -184,6 +184,8 @@ Para obtener los timings de tu servidor, solamente debes ejecutar el comando `/t
 
 En esta sección se mostrarán opciones de los software de servidor que podrían ayudar a mejorar el rendimiento de tu servidor, y junto a cada opción se mostrará una breve descripción de lo que hace.
 
+Recuerda que puedes encontrar cada cosa en tu editor de texto usando la herramienta de búsqueda usando el atajo de teclado **CTRL + F**, ahí introduces lo que necesites buscar.
+
 #### <div id="server-properties">**server.properties**</div>
 
 `network-compression-threshold`
@@ -192,7 +194,7 @@ En esta sección se mostrarán opciones de los software de servidor que podrían
 
 - **Optimizado:** Servidor independiente: `512` - BungeeCord: `-1`
 
-- **Explicación:** Esta opción captura el tamaño de un paquete antes que el servidor lo comprima. Establecerlo en valores mayores puede ahorrar algunos recursos a costa de un consumo mayor de ancho de banda, y establecerlo a `-1` lo desactiva. Si tu servidor es una network con un proxy en la misma máquina o datacenter (con menos de 2ms de ping), deshabilitarlo (`-1`) tendrá beneficios.
+- **Explicación:** Esta opción captura el tamaño de un paquete antes que el servidor lo comprima. Establecerlo en valores mayores puede ahorrar algunos recursos a costa de un consumo mayor de ancho de banda, y establecerlo a `-1` lo desactiva. Si tu servidor es una network con un proxy en la misma máquina o datacenter (con menos de 2ms de ping), deshabilitarlo (`-1`) tendrá beneficios, ya que usualmente las redes internas pueden manejar el tráfico no comprimido.
 
 ---
 
@@ -472,6 +474,22 @@ max-tick-time:
 
 - **Explicación:** Limita la cantidad de colisiones que una entidad calculará al mismo tiempo. Establecer esto en el valor optimizado te permitirá mantener la habilidad del jugador para empujar mobs. Establecer esto a 0 completamente desactivaría las colisiones, haciendo que empujar mobs/jugadores sea imposible.
 
+`remove-corrupt-tile-entities`
+
+- **Por defecto:** `false`
+
+- **Optimizado:** `true`
+
+- **Explicación:** Activo esto solamente si tienes errores en la consola relacionados con entidades de tipo tile, esta opción removerá esas tiles que causen errores en vez de ignorarlas.
+
+`update-pathfinding-on-block-update`
+
+- **Por defecto:** `true`
+
+- **Optimizado:** `false`
+
+- **Explicación:** Desactivar esto resulatará en que los mobs hagan una menor búsqueda de rutas, aumentando así el rendimiento, pero se verán como si fueran con retraso ya que solamente actualizarán su ruta cada 5 ticks (0.25 segundos).
+
 `grass-spread-tick-rate`
 
 - **Por defecto:** `1`
@@ -487,6 +505,14 @@ max-tick-time:
 - **Optimizado:** `true`
 
 - **Explicación:** Sistema de redstone alternativo mucho más rápido. Reduce las actualizaciones de redstone redundates en cerca de un 95%.
+
+`nether-ceiling-void-damage-height`
+
+- **Por defecto:** `0`
+
+- **Optimizado:** `127`
+
+- **Explicación:** Si esta opción es mayor que `0`, los jugadores arriba del nivel de axis y establecido serán lastimados como si estuvieran cayendo al vacío. Esto prevendrá que los jugadores usen el techo del nether. El techo vanilla del nether es de 128 bloques de altura, por lo que este valor deberías colocarlo en `127`. Si modificaste la altura del nether de alguna manera, debes colocarlo usando la siguiente fórmula: `altura_nether - 1`.
 
 `armor-stands-do-collision-entity-lookups`
 
@@ -526,7 +552,7 @@ max-tick-time:
 
 - **Optimizado:** `false`
 
-- **Explicación:** La única cosa que hace que los soportes de armaduras sean tickeados es para verificar si están siendo empujadas por agua. Desactivando esto, eres libre de liberar algunos procesos de tick y solamente perder una mecánica menor.
+- **Explicación:** La única cosa que hace que los soportes de armaduras sean tickeados es para verificar si están siendo empujadas por agua. Desactivando esto, eres libre de liberar algunos procesos de tick y solamente perder una mecánica menor. Ten en cuenta que hay algunos plugins que dependen de esto y por lo tanto pueden haber incompatibilidades, pero solamente en casos muy específicos.
 
 `non-player-arrow-despawn-rate`
 
@@ -760,7 +786,7 @@ world-settings:
 
 - **Optimizado:** `true`
 
-- **Explicación:** Sistema alternativo de paquetes keepalive que hace que los jugadores con mala conexión no sobrepasen el tiempo de espera de forma tan regular.
+- **Explicación:** Sistema alternativo de paquetes keepalive que hace que los jugadores con mala conexión no sobrepasen el tiempo de espera de forma tan regular. Es incompatible con el funcionamiento de TCP Shield.
 
 `dont-send-useless-entity-packets`
 
@@ -785,6 +811,22 @@ world-settings:
 - **Optimizado:** `false`
 
 - **Explicación:** Desactiva el uso de portales en todas las entidades a excepción de jugadores. Esto potencialmente arregla un bug de duplicación (faltan fuentes) y evita que las entidades vayan de mundo en mundo cargando chunks en el main thread.
+
+`villager.brain-ticks`
+
+- **Por defecto:** `1`
+
+- **Optimizado:** `2`
+
+- **Explicación:** Esta opción establece qué tan frecuentemente sus cerebros harán ticks (lo que los hace trabajar). Por defecto esta opción hace tick en todos los ticks, cantidades mayores pueden reducir el lag causado pero tendrá un efecto muy notorio de retraso o poca respuesta en valores sobre `3` por lo que no es muy recomendado.
+
+`villager.lobotomize`
+
+- **Por defecto:** `false`
+
+- **Optimizado:** `true`
+
+- **Explicación:** Esto le remueve la IA de los aldeanos que no pueden encontrar un camino (no pueden moverse), pero no desactiva el intercambio con ellos por lo que no afecta mucho.
 
 `mobs.dolphin.disable-treasure-searching`
 
