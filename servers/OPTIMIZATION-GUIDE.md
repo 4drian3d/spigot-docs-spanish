@@ -152,7 +152,7 @@ Esta es una buena noticia, ya que las nuevas versiones de Java usualmente tienen
 
 #### <div id="plugins-remueven-objetos-suelo">**Plugins que remueven objetos del suelo**</div>
 
-Son absolutamente innecesarios ya que pueden ser fácilmente reemplazados con [merge-radius](#merge-radius) y [alt-item-despawn-rate](#alt-item-despawn-rate) y francamente, son menos configurables que las configuraciones bássicas de un servidor. Lo peor es que tienden a usar más recursos escaneando y removiendo objetos, por lo que causan más lag del que supuestamente deberían quitar.
+Son absolutamente innecesarios ya que pueden ser fácilmente reemplazados con [merge-radius](#merge-radius) y [alt-item-despawn-rate](#alt-item-despawn-rate) y francamente, son menos configurables que las configuraciones básicas de un servidor. Lo peor es que tienden a usar más recursos escaneando y removiendo objetos, por lo que causan más lag del que supuestamente deberían quitar.
 
 #### <div id="plugins-stackean-mobs">**Plugins que stackean mobs**</div>
 
