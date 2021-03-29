@@ -83,7 +83,7 @@ El mundo que se pre-generará será: world_nether
 Se ha comenzado la pre-generación del mapa.
 ```
 
-- Establecer un borde de un mundo a 0,0 en un radio de 10000 bloques y generar los chunks del interior:
+- Establecer un borde de un mundo a 0,0 en un diámetro de 0000 bloques y generar los chunks del interior:
 
 ```txt
 /worldborder center 0 0
