@@ -38,9 +38,9 @@ Tu elección de software de servidor (el archivo JAR, al cual muy comúnmente se
 #### <div id="software-recomendado">**Software recomendado**</div>
 
 - [Paper](https://papermc.io/) - Este es el software de servidor más popular y con menos incompatibilidades enfocado en mejorar el rendimiento, también incluye algunas opciones que ayudan a mejorar las mecánicas de Minecraft Vanilla.
-- [Tuinity](https://github.com/Spottedleaf/Tuinity) - Un fork (derivado) de Paper que se enfoca en mejorar el rendimiento del servidor aún más que Paper. Su principal fortaleza es su sistema de iluminación [Starlight](https://github.com/Spottedleaf/Starlight), el cual mejora mucho el [tiempo de carga de chunks](https://camo.githubusercontent.com/c7a72e2b4f101795e37902c64d09c59a4997bcff2117887b37bd7d6fad03cf1c/68747470733a2f2f692e696d6775722e636f6d2f364f6375794a582e706e67).
-- [Purpur](https://github.com/pl3xgaming/Purpur) - Un fork (derivado) que implementa los parches de Tuinity y Airplane, que se enfoca en ofrecerle al dueño del servidor más libertad en la configuración de funciones del juego. Debido a que desde hace poco usa parches de Airplane, las mejoras de rendimiento son más notarias en servidores dedicados, en cambio, en VPS o Minecraft hostings de mala calidad podría ser capaz de acabarse los hilos de la CPU, perjudicando así el rendimiento.
+- [Tuinity](https://github.com/Spottedleaf/Tuinity) - Un fork (derivado) de Paper que se enfoca en mejorar el rendimiento del servidor aún más que Paper. Su principal fortaleza es su sistema de iluminación [Starlight](https://github.com/Spottedleaf/Starlight), el cual mejora considerablemente el [tiempo de carga de chunks](https://camo.githubusercontent.com/c7a72e2b4f101795e37902c64d09c59a4997bcff2117887b37bd7d6fad03cf1c/68747470733a2f2f692e696d6775722e636f6d2f364f6375794a582e706e67).
 - [Airplane](https://airplane.gg/) - Un fork (derivado) de Tuinity dedicado especialmente grandes servidores, con grandes cantidades de entidades, jugadores (100 o más) y chunks. Recomendado para servidores dedicados, lo más probable es que la mejora no sea notoria en un hosting de Minecraft o una VPS que tenga poca potencia, en esos casos es preferible usar Tuinity.
+- [Purpur](https://purpur.pl3x.net/) - Un fork (derivado) de Paper que implementa los parches de Tuinity y Airplane, que se enfoca en ofrecerle al dueño del servidor más libertad en la configuración de funciones del juego. Debido a que desde hace poco usa parches de Airplane, las mejoras de rendimiento son más notarias en servidores dedicados, en cambio, en VPS o Minecraft hostings de mala calidad podría ser capaz de acabarse los hilos de la CPU, perjudicando así el rendimiento.
 
 #### <div id="software-no-recomendado">**Software no recomendado**</div>
 
@@ -144,9 +144,13 @@ La JVM puede ser configurada para reducir los picos de lag causados por las gran
 
 #### <div id="version-java">**Versión de Java**</div>
 
-Usualmente para iniciar un servidor de Minecraft se requiere Java 8, pero afortunadamente Paper y sus forks (derivados) ya son compatibles con Java 11 en sus versiones más recientes y con la salida de la versión `1.17`, será obligatorio el uso de Java 11 o mayor ([más información](https://papermc.io/forums/t/java-11-mc-1-17-and-paper/5615)).
+Usualmente para iniciar un servidor de Minecraft antes se requeria usar Java 8, pero afortunadamente el equipo de Mojang decidio que, a partir de las versiones 1.17 en adelante, sea obligatorio el uso de Java 16 a mayor en servidores y clientes.
 
-Esta es una buena noticia, ya que las nuevas versiones de Java usualmente tienen un sistema de recolección de basura más optimizado, lo cual posiblemente ayudará a que nuestros servidores tengan un mejor rendimiento. Si quieres saber la versión de Java que usa tu servidor, puedes usar el comando `java --version` si tienes VPS, en caso de que uses un hosting de Minecraft con panel tendrás que buscarlo en ese lugar (en caso de que uses Paper, igualmente te aparece una advertencia bastante notoria si usas Java 8 en versiones más recientes).
+Anteriormente PaperMC anuncio el requerimiento obligatorio del uso de Java 11 para su producto Paper y los forks derivados de este.[Java 11](https://papermc.io/forums/t/java-16-mc-1-17-and-paper/5615), pero debido al cambio directo de Minecraft a Java 16, todos los servidores deberan usar esta versión o alguna versión mayor, tal como Java 17 LTS ([Más informacion sobre el soporte a versiones de Java](https://www.oracle.com/java/technologies/java-se-support-roadmap.html)).
+
+Esta es una buena noticia, ya que las nuevas versiones de Java usualmente tienen un sistema de recolección de basura más optimizado, lo cual posiblemente ayudará a que nuestros servidores tengan un mejor rendimiento. Si quieres saber la versión de Java que usa tu servidor, puedes usar el comando `java --version` si tienes VPS, en caso de que uses un hosting de Minecraft con panel tendrás que buscarlo en ese lugar (en caso de que uses Paper o alguna de sus bifurcaciones, igualmente te aparece una advertencia bastante notoria si usas Java 15 o menor en versiones actuales).
+
+Ten en cuenta, gran parte de los plugins que utilizas actualmente soportan Java 11 o 16, a pesar de ello, antes de actualizar la versión de Java de tu servidor, se te recomienda que instales un servidor localhost con la versión más reciente de Paper junto a Java 16, el cual puedes encontrar [aqui](https://adoptopenjdk.net/releases.html?variant=openjdk16&jvmVariant=hotspot), descarga la versión JRE de Java 16 segun el sistema operativo que uses. En caso encuentres algun error, debes informar al desarrollador del plugin correspondiente sobre este fallo.
 
 ### <div id="evitar-toda-costa">¿Qué cosas debo evitar a toda costa? ([inicio](#guia-de-optimizacion))</div>
 
@@ -162,13 +166,13 @@ Es realmente difícil justificar el uso de uno. Stackear entidades que aparecier
 
 Cualquier cosa que active, desactive o recargue plugins en tiempo de ejecución es extremadamente peligroso. Cargar un plugin de esa manera causa errores fatales con los datos de seguimiento y desactivar un plugin puede llevar a errores debido a alguna dependencia faltante.
 
-El comando `/reload` sufre de los mismos problemas, debido a que Java no provee una forma soportada o segura de descargar o recargar código que ya ha sido cargado, por lo que lo ideal sería que reinicies tu servidor cada vez que añadas algún nuevo plugin y no intentes recargarlo jamás. Para más información, haz [click aquí](https://matthewmiller.dev/blog/problem-with-reload/).
+El comando `/reload` sufre de los mismos problemas, debido a que Java no provee una forma soportada o segura de descargar o recargar código que ya ha sido cargado, por lo que lo ideal sería que reinicies tu servidor cada vez que añadas algún nuevo plugin y no intentes recargarlo jamás. Para más información, haz [click aquí](https://madelinemiller.dev/blog/problem-with-reload/).
 
 ### <div id="medir-rendimiento-servidor">¿Cómo mido el rendimiento de mi servidor? ([inicio](#guia-de-optimizacion))</div>
 
 #### <div id="mspt">**mspt**</div>
 
-Paper ofrece el comando `/mspt` que te dirá cuánto tiempo le tómo al servidor calcular los ticks recientes. Si el primer y segundo valor están por debajo de `50`, ¡felicidades, tu servidor no tiene lag! Si el tercer valor está sobre `50`, entonces eso signififca que hubo al menos `1` tick que tomó más tiempo. Esto es complementamente normal y suele pasar en ocasiones, así que no te alteres.
+Paper, en versiones recientes, ofrece el comando `/mspt` que te dirá cuánto tiempo le tómo al servidor calcular los ticks recientes. Si el primer y segundo valor están por debajo de `50`, ¡felicidades, tu servidor no tiene lag! Si el tercer valor está sobre `50`, entonces eso signififca que hubo al menos `1` tick que tomó más tiempo. Esto es complementamente normal y suele pasar en ocasiones, así que no te alteres.
 
 #### <div id="timings">**timings**</div>
 
@@ -178,7 +182,7 @@ Para obtener los timings de tu servidor, solamente debes ejecutar el comando `/t
 
 #### <div id="spark">**spark**</div>
 
-[Spark](https://github.com/lucko/spark) es un plugin que te permite medir el uso de CPU y memoria RAM de tus servidores. Puedes leer cómo usarlo en su [wiki](https://github.com/lucko/spark/wiki/Commands) (próximamente en español). También hay una guía en cómo encontrar las causas de picos de lag [aquí](https://github.com/lucko/spark/wiki/Finding-the-cause-of-lag-spikes).
+[Spark](https://github.com/lucko/spark) es un plugin que te permite medir el uso de CPU y memoria RAM de tus servidores. Puedes leer cómo usarlo en su [wiki](https://spark.lucko.me/docs/) (próximamente en español). También hay una guía en cómo encontrar las causas de picos de lag [aquí](https://spark.lucko.me/docs/guides/Finding-lag-spikes).
 
 ### <div id="configuraciones-optimizadas">Configuraciones optimizadas ([inicio](#guia-de-optimizacion))</div>
 
