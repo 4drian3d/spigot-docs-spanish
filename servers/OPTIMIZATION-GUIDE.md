@@ -37,10 +37,10 @@ Tu elección de software de servidor (el archivo JAR, al cual muy comúnmente se
 
 #### <div id="software-recomendado">**Software recomendado**</div>
 
-- [Paper](https://papermc.io/) - Este es el software de servidor más popular y con menos incompatibilidades enfocado en mejorar el rendimiento, también incluye algunas opciones que ayudan a mejorar las mecánicas de Minecraft Vanilla. Además, siendo fork de Spigot, incluye la compatibilidad con plugins de este último, pudiendo mejorar el rendimiento con el que se desempeñan y ofreciendo una mayor cantidad de APIs utilies que pueden ser aprovechadas en su entorno y derivados de este. 
+- [Paper](https://papermc.io/) - Este es el software de servidor más popular y con menos incompatibilidades enfocado en mejorar el rendimiento, también incluye algunas opciones que ayudan a mejorar las mecánicas de Minecraft Vanilla. Además, siendo fork de Spigot, incluye la compatibilidad con plugins de este último, pudiendo mejorar el rendimiento con el que se desempeñan y ofreciendo una API más extensiva que puede ser aprovechada por desarrolladores de plugins.
 - [Tuinity](https://github.com/Spottedleaf/Tuinity) - Un fork (derivado) de Paper que se enfoca en mejorar el rendimiento del servidor en un nivel superior al de Paper. Su principal fortaleza es su sistema de iluminación [Starlight](https://github.com/Spottedleaf/Starlight), el cual mejora considerablemente el [tiempo de carga de chunks](https://camo.githubusercontent.com/c7a72e2b4f101795e37902c64d09c59a4997bcff2117887b37bd7d6fad03cf1c/68747470733a2f2f692e696d6775722e636f6d2f364f6375794a582e706e67).
-- [Purpur](https://purpur.pl3x.net/) - Un fork (derivado) de Paper que implementa los parches de Tuinity, que se enfoca en ofrecerle al dueño del servidor más libertad en la configuración de funciones del juego, ofreciendo decenas de nuevas configuraciones y caracteristicas, sin coste extra de rendimiento y desactivadas por defecto. 
-- [Airplane](https://airplane.gg/) - Un fork (derivado) de Tuinity dedicado especialmente grandes servidores, con grandes cantidades de entidades, jugadores (100 o más) y chunks. Recomendado para servidores dedicados, lo más probable es que la mejora no sea notoria en un hosting de Minecraft o una VPS que tenga poca potencia, en esos casos es preferible usar Tuinity.
+- [Purpur](https://purpur.pl3x.net/) - Un fork (derivado) de Paper que implementa los parches de Tuinity, que se enfoca en ofrecerle al dueño del servidor más libertad en la configuración de funciones del juego, ofreciendo decenas de nuevas configuraciones y caracteristicas, sin coste extra de rendimiento y desactivadas por defecto.
+- [Airplane](https://airplane.gg/) - Un fork (derivado) de Tuinity dedicado a mejorar el rendimiento de entidades, reducir los tiempos de recolección de basura y optimizar las tolvas en alrededor de un 30%. Puedes leer más sobre Airplane haciendo [click aquí](https://blog.airplane.gg/about/).
 
 #### <div id="software-no-recomendado">**Software no recomendado**</div>
 
@@ -136,21 +136,21 @@ Borde del mundo establecido en un diámetro de 20000 bloques (10000 por 10000).
 
 #### <div id="parametros-jvm">**Parámetros de la JVM**</div>
 
-La JVM (Java Virtual Machine) es una especie de programa que le permite a tu computadora ejecutar el bytecode de Java ([más información](https://es.wikipedia.org/wiki/M%C3%A1quina_virtual_Java)).
+La JVM (Java Virtual Machine) es una máquina virtual que le permite a tu computadora interpretar el bytecode de Java ([más información](https://es.wikipedia.org/wiki/M%C3%A1quina_virtual_Java)).
 
-Las parámetros de inicio de la JVM te permiten modificar aspectos de cómo será iniciado tu servidor, probablemente los parámetros que más te suenen sean las que asignan el consumo inicial y máximo de memoria RAM: `java -Xms1G -Xmx1G -jar server.jar`.
+Las parámetros de inicio de la JVM te permiten modificar aspectos de cómo será iniciado tu servidor, probablemente los parámetros que más te suenen sean las que asignan el consumo inicial y máximo de RAM: `java -Xms1G -Xmx1G -jar server.jar`.
 
 La JVM puede ser configurada para reducir los picos de lag causados por las grandes tareas de recolección de basura. Puedes generar flags de inicio ideales para tu servidor en [startmc.sh](https://startmc.sh/), para mayor información sobre estas flags haz [click aquí](https://mcflags.emc.gs/).
 
 #### <div id="version-java">**Versión de Java**</div>
 
-Usualmente para iniciar un servidor de Minecraft antes se requeria usar Java 8, pero afortunadamente el equipo de Mojang decidio que, a partir de las versiones 1.17 en adelante, sea obligatorio el uso de Java 16 a mayor en servidores y clientes.
+Usualmente para iniciar un servidor de Minecraft se requería usar Java 8, pero afortunadamente el equipo de Mojang decidió que, a partir de las versiones 1.17 en adelante, será obligatorio el uso de Java 16 a mayor en servidores y clientes.
 
-Anteriormente PaperMC anuncio el requerimiento obligatorio del uso de Java 11 para su producto Paper y los forks derivados de este.[Java 11](https://papermc.io/forums/t/java-16-mc-1-17-and-paper/5615), pero debido al cambio directo de Minecraft a Java 16, todos los servidores deberan usar esta versión o alguna versión mayor, tal como Java 17 LTS ([Más informacion sobre el soporte a versiones de Java](https://www.oracle.com/java/technologies/java-se-support-roadmap.html)).
+Anteriormente PaperMC anunció el requerimiento obligatorio del uso de Java 11 para su producto Paper y los forks derivados de éste: [Java 16, MC 1.17, and Paper](https://papermc.io/forums/t/java-16-mc-1-17-and-paper/5615), pero debido al cambio directo de Minecraft a Java 16, todos los servidores tendrán usar esta versión o alguna versión mayor, tal como Java 17 LTS ([más informacion sobre el soporte a versiones de Java](https://www.oracle.com/java/technologies/java-se-support-roadmap.html)).
 
-Esta es una buena noticia, ya que las nuevas versiones de Java usualmente tienen un sistema de recolección de basura más optimizado, lo cual posiblemente ayudará a que nuestros servidores tengan un mejor rendimiento. Si quieres saber la versión de Java que usa tu servidor, puedes usar el comando `java --version` si tienes VPS, en caso de que uses un hosting de Minecraft con panel tendrás que buscarlo en ese lugar (en caso de que uses Paper o alguna de sus bifurcaciones, igualmente te aparece una advertencia bastante notoria si usas Java 15 o menor en versiones actuales).
+Esta es una buena noticia, ya que las nuevas versiones de Java poseen sistemas de recolección de basura más modernos, lo cual posiblemente ayudará a que nuestros servidores tengan un mejor rendimiento. Si quieres saber la versión de Java que usa tu servidor, puedes usar el comando `java -version` desde Linux; en caso de que uses un hosting de Minecraft con panel, tendrás que buscarlo en ese lugar (en caso de que uses Paper o alguna de sus bifurcaciones, igualmente te aparecerá una advertencia bastante notoria si usas Java 15 o menor en versiones actuales).
 
-Ten en cuenta, gran parte de los plugins que utilizas actualmente soportan Java 11 o 16, a pesar de ello, antes de actualizar la versión de Java de tu servidor, se te recomienda que instales un servidor localhost con la versión más reciente de Paper junto a Java 16, el cual puedes encontrar [aqui](https://adoptopenjdk.net/releases.html?variant=openjdk16&jvmVariant=hotspot), descarga la versión JRE de Java 16 segun el sistema operativo que uses. En caso encuentres algun error, debes informar al desarrollador del plugin correspondiente sobre este fallo.
+Ten en cuenta que gran parte de los plugins que utilizas actualmente soportan Java 11 o 16, a pesar de ello, antes de actualizar la versión de Java de tu servidor, se te recomienda que instales un servidor local con la versión más reciente de Paper junto a Java 16, el cual puedes encontrar [aqui](https://adoptopenjdk.net/releases.html?variant=openjdk16&jvmVariant=hotspot). Descarga la versión JRE de Java 16 segun el sistema operativo que uses. En caso encuentres algún error, debes informar al desarrollador del plugin correspondiente sobre este fallo.
 
 ### <div id="evitar-toda-costa">¿Qué cosas debo evitar a toda costa? ([inicio](#guia-de-optimizacion))</div>
 
